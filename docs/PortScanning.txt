@@ -1,0 +1,100 @@
+--------------------------------
+UDP Port Scanning
+--------------------------------
+
+Scapy
+-----
+Create an IP() and set it's dst, then create a UDP() and set it's dport to the desired port number, stack them then send and check the response.
+
+Nmap
+----
+nmap -sU [IP]
+-sU = UDP scan will be performed.
+-p = ports to be scanned, comma-separated or a range can be specified with a "-" between the upper and lower bounds, if not used, the default 1000 ports will be scanned.
+-iL can be used.
+
+Metasploit
+----------
+msf > use auxiliary/scanner/discovery/udp_sweep
+set RHOSTS and THREADS, then "run".
+RHOSTS can be a CIDR notation or a range with a "-".
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------
+Stealth Scanning
+--------------------------------
+
+Scapy
+-----
+Craft an IP() and a TCP() with flags set to SYN, stack then send an check the response:
+If a response with SYN and ACK flags set is returned, an open port is assumed to be in place,
+If a response with the RST flag set is returned, the port is most likely closed,
+If no response is returned, then a firewall must be in place or the host is down.
+
+Nmap
+----
+nmap -sS [IP]
+-sS = TCP stealth scan will be performed.
+-iL can be used.
+
+Metasploit
+----------
+msf > use auxiliary/scanner/portscan/syn
+Set RHOSTS, THREADS, INTERFACE and PORTS then "run".
+Ports can be a "-" separated range.
+
+Hping3
+------
+hping3 [IP] --scan [Ports] -S
+--scan = Ports will be scanned.
+-S = TCP packets will be sent to a remote system.
+Ports can be a range ("-" separated) or a list (comma separated).
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------
+Connect Scanning
+--------------------------------
+
+Nmap
+----
+nmap -sT [IP]
+-sT = TCP connect scan will be performed.
+-iL can be used.
+
+Metasploit
+----------
+msf > use auxiliary/scanner/portscan/tcp
+Set the PORTS, RHOSTS, INTERFACE, and THREADS then "run".
+
+Dmitry
+------
+dmitry -p [IP]
+-p = TCP connect scan will be performed, the default 150 ports will be scanned.
+
+Netcat
+------
+nc -nvz [IP] [Port]
+-z = Used for scanning.
+-n = IP address will be used.
+-v = Verbose output.
+Ports can be specified as a range with the used of a "-".
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------
+Zombie Scanning
+--------------------------------
+
+Metasploit
+----------
+Metasploit can be used to identify zombies.
+msf > use auxiliary/scanner/ip/ipidseq
+Set RHOSTS, INTERFACE, and THREADS then "run".
+
+Nmap
+----
+nmap [IP to be scanned] -sI [Zombie host IP] -Pn -p [Ports]
+-Pn = Don't use pinging.
+-sI = A zombie scan will be performed.
