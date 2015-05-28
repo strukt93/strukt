@@ -1,0 +1,10 @@
+--------------------------------
+Denial of Service
+--------------------------------
+
+NTP Amplification Attack
+------------------------
+Nmap can be used to determine if the 123 port is running an NTP service using the following:
+nmap -sU [IP] -p 123
+If the port is open, ntpdc can be used to determine if the service can be used in an amplification attack as follows:
+ntpdc -n -c monlist [IP]
