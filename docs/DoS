@@ -8,3 +8,27 @@ Nmap can be used to determine if the 123 port is running an NTP service using th
 nmap -sU [IP] -p 123
 If the port is open, ntpdc can be used to determine if the service can be used in an amplification attack as follows:
 ntpdc -n -c monlist [IP]
+---------------------------------------------------------------------------------
+
+DoS using Nmap
+--------------
+Search the script.db (located at /usr/share/nmap/script) for scripts than can be used for a DoS attack.
+Use the suitable script with the IP/Hostname of the target.
+
+---------------------------------------------------------------------------------
+
+DoS using Metasploit
+--------------------
+Search the /usr/share/metasploit-framework/modules/auxiliary/dos/ for DoS modules.
+Run msfconsole, use the desired module by consulting "use auxiliary/dos/[rest of the file path]".
+Set the necessary attributes, then run.
+
+
+
+
+---------------------------------------------------------------------------------
+
+DoS using the ExploitDB
+-----------------------
+Search the /usr/share/exploitdb/files.csv file for DoS scripts and vulnerabilites.
+Use the most suitable.
