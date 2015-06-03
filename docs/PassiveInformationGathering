@@ -1,10 +1,10 @@
-- Use the whois tool to find the domain servers:
-whois [Host URL]
+// Use the whois tool to find the domain servers:
+- whois [Host URL]
 
-- Use www.netcraft.com to find the IP of the target and some of the technologies it's using.
+// Use www.netcraft.com to find the IP of the target and some of the technologies it's using.
 
-- Use whois again but with the IP instead:
-whois [IP]
+// Use whois again but with the IP instead:
+- whois [IP]
 
-- Use the nslookup tool to get additional info:
-nslookup [IP/Host]
+// Use the nslookup tool to get additional info:
+- nslookup [IP/Host]

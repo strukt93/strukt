@@ -1,29 +1,43 @@
 1 - auxiliary/scanner/portscan/syn
-* Scans a system for open ports.
+// Scans a system for open ports.
 
 2 - auxiliary/scanner/smb/smb_version
-* Scans a Windows machine for it's version.
+// Scans a Windows machine for it's version.
 
 3 - auxiliary/scanner/mssql/mssql_ping
-* Scans a machine for a poorly configured MSSQL server.
+// Scans a machine for a poorly configured MSSQL server.
 
-4 - auxiliary/scanner/ssh/ssh_version
-* Scans a machine for it's SSH version.
+4 - auxiliary/scanner/mssql/mssql_login
+// Brute-forces an MSSQL server for it's credentials.
 
-5 - auxiliary/scanner/ftp/ftp_version
-* Scans a target for it's FTP version.
+5 - auxiliary/scanner/mssql/mssql_payload
+// Runs a payload on an exploited target machine. (#4 is a prerequisite).
+// Use with the windows/meterpreter/reverse_tcp payload.
+// Set the PASSWORD to the password used in #4.
 
-6 - auxiliary/scanner/ftp/anonymous
-* Scans a target if it's FTP server accepts anonymous logins. (5 is a prerequisite).
+6 - auxiliary/scanner/ssh/ssh_version
+// Scans a machine for it's SSH version.
 
-7 - auxiliary/scanner/snmp/snmp_login
-* Attempts to find the community string of a target.
+7 - auxiliary/scanner/ftp/ftp_version
+// Scans a target for it's FTP version.
 
-8 - auxiliary/scanner/smb/smb_login
-* Scans a target for smb logins.
+8 - auxiliary/scanner/ftp/anonymous
+// Scans a target if it's FTP server accepts anonymous logins. (#7 is a prerequisite).
 
-9 - auxiliary/scanner/vnc/vnc_none_auth
-* Scans a system for for VNC blank password logins.
+9 - auxiliary/scanner/snmp/snmp_login
+// Attempts to find the community string of a target.
 
-10 - auxiliary/scanner/x11/open_x11
-* Scans a system for for X11 servers that allow unauthenticated connections.
+10 - auxiliary/scanner/smb/smb_login
+// Scans a target for smb logins.
+
+11 - auxiliary/scanner/vnc/vnc_none_auth
+// Scans a system for for VNC blank password logins.
+
+12 - auxiliary/scanner/x11/open_x11
+// Scans a system for for X11 servers that allow unauthenticated connections.
+
+13 - exploit/windows/smb/psexec
+// Exploits a target machine using dumped uncracked password hashes.
+// Use with the windows/meterpreter/reverse_tcp payload.
+// Set the SMBPass and then exploit.
+
