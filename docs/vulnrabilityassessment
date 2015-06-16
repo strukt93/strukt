@@ -1,0 +1,12 @@
+- webshag-cli/webshag-gui
+// Webshag is a multi-threaded tool used to audit web servers.
+// It can port scan, spider, url scan, and fuzz the target. Very powerful.
+// Webshag uses other tools -sometimes- .
+
+- skipfish 
+// Skipfish prepares an interactive sitemap for the target using recursive crawl and dictionary-based probes.
+// Supply the output directory with -o.
+// Supply the wordlist to be user with -W/-S if the wordlist is a read-only.
+// Skipfish's wordlist are located at /usr/share/skipfish/dictionaries/.
+// Supply the target URL with the http:// | https:// .
+
