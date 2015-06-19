@@ -1,10 +1,86 @@
-// Use the whois tool to find the domain servers:
-- whois [Host URL]
+Tools :
 
-// Use www.netcraft.com to find the IP of the target and some of the technologies it's using.
+- whois [IP/URL]
+// Finds information about the DNS server and the contact information of a given IP/URL.
 
-// Use whois again but with the IP instead:
-- whois [IP]
+- nslookup [IP/URL]
+// Makes a name server lookup of the given IP/URL.
 
-// Use the nslookup tool to get additional info:
-- nslookup [IP/Host]
+- host [IP/URL]
+// Finds the IPv4 and IPv6 - if exists - of a host.
+// Looks for the A, AAAA, and MX records of a domain automatically.
+// Use -a to query for any records.
+// If the domain name is supplied to host, the method is called forward lookup.
+// If the IP address is supplied to host, the method is called reverse lookup.
+
+- dig [IP/URL]
+// Does DNS interrogation with a flexible and clear output.
+// If no flags supplied, dig will only interrogate the DNS for the A record.
+// Use 'any' to interrogate the DNS for any records.
+// Use 'type' to interrogate the DNS for a specific record type.
+
+- dnsenum [URL]
+// Finds the IP address, DNS server, and MX records of a host.
+// Can find additional names and subdomains using Google Search (Use with the -p flag for the number of Google pages,
+// or with -s to define number of subdomains to collect).
+// Can brute-force subdomains from text files, dns.txt which has 1480 records,
+// and dns-big.txt that has 266930 records (Use with the -f flag).
+// Can carry out 'whois' queries on C-class domain network ranges and calculate it's network ranges.
+// Can carry out reverse lookup on network ranges.
+// Can use threads to speed up query processing (Use with the --threads flag).
+
+- dnsdect6 [URL]
+// IPv6 subdomains enumeration tool.
+// Will use a built-in wordlist with 8 threads by default.
+// Can be used to enumerate subdomains on IPv4 (Use with the -4 flag).
+// Can collect data about the DNS and NS of a domain (Use with the -d flag).
+
+========================================================================
+
+Websites :
+
+- www.whois.net
+// Same functionality of the whois command.
+
+- www.internic.net/whois.html
+// Same functionality of the whois command.
+
+- www.netcraft.com 
+// Finds the IP of a URL and some of the technologies it's using.
+
+- www.archive.org
+// Contains an acrhive of websites.
+
+- www.domaintools.com
+// Contains domain name intelligence.
+
+- www.alexa.com
+// Contains the database of information about websites.
+
+- serversniff.net
+// Free "Swiss Army Knife" for networking, server checks, and routing.
+
+- centralops.net
+// Contains free online network utilities such as domain, email, browser, ping, traceroute and Whois.
+
+- www.robtext.com
+// Allows the user to search for domain and network information.
+
+- www.pipl.com
+// Allows the user to search for people on the internet by their first and last names, city, state, and country.
+
+- youname.com
+// Allows the user tp search for people across social networking sites and blogs.
+
+- wink.com
+// A free search engine that allows the user to find people by their name, phone number, email, website, photo, etc.
+
+- www.isearch.com
+// A free search engine that allows the user to find people by their name, phone number, and email.
+
+- www.tineye.com
+// A reverse image search engine, can be use to find out where the image came from, how it is being used,
+// whether modified versions of the image exist, or to find higher resolution versions.
+
+- www.sec.gov/edgar.shtml
+// Can be used to search for information regarding public listed companies in the Securities and Exchange Commission. 

@@ -34,4 +34,3 @@
 // Dirbuster is a directory and filename bruteforcing tool.
 // Set the target url, then choose the wordlist to be used from /usr/share/dirbuster/wordlists, then run.
 
--webslayer
