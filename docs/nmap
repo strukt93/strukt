@@ -1,4 +1,366 @@
+=====================
+| Brief Description |
+=====================
+
 Nmap is a very comprehensive, feature- and fingerprint rich, and widely used port scanner 
-by all of the IT security community. It is a must-have tool for a pentester.
+	by all of the IT security community. It is a must-have tool for a pentester.
 
 Besides being used as a port scanner, Nmap has several other capabilities as follows :
+
+- Host discovery: Nmap can be used to find live hosts on the target systems.
+	By default, Nmap will send an ICMP echo request, a TCP SYN packet to port 443,
+	a TCP ACK packet to port 80, and an ICMP timestamp request to carry out the host discovery.
+
+- Service/version detection: After Nmap has discovered the ports, it can further
+	check for the service protocol, the application name, and the version number used on the target system.
+
+- OS detection: Nmap sends a series of packets to the remote host and examines the responses.
+	Then, it compares these responses with it's OS fingerprint database and prints out the details if there's a match.
+
+- Network traceroute: Performed to determine the port and protocol that is most likely to reach the target system.
+	Nmap traceroute starts with a high value of TTL and decrements it until the TTL value reaches zero.
+
+- Nmap Scripting Engine (NSE): With this feature, Nmap can be extended.
+	If you want to add a check that is not included by default in Nmap, you can do so by writing the check
+	using Nmap Scripting Engine. Currently, there are checks for vulnerabilities in network services and for
+	enumerating resources on the target system.
+
+=====================================================================================================================
+
+===============
+| Port States |
+===============
+
+There are six port states that are recognized by Nmap as follows:
+
+	- Open: This means that there is an application accepting a TCP connection,
+		UDP datagram, or SCTP association.
+
+	- Closed: This means that although the port is accessible, there is no application listening on it.
+
+	- Filtered: This means that Nmap can't determince whethher the port is open or not; because there
+		is a packet-filtering device blocking the probe to reach the target.
+
+	- Unfiltered: This means that the port is accessible, but Nmap cannot determine whether it is open or closed.
+
+	- Open|Filtered: This means that Nmap is unable to determine whether the port is open or filtered. 
+		This happens when a scan to open ports doesn't give a response. It can be achieved by setting a firewall to drop packets.
+
+	- Closed|Filtered: This means Nmap is unable to determine whether the port is closed or filtered.
+
+=====================================================================================================================
+
+=============================
+| Nmap Target Specification |
+=============================
+
+Nmap will treat anything on the command line that isn't an option (flag) or option argument as target host speification.
+Using IP address specification instead of hostname (URL) is encouraged; because Nmap won't need to do DNS resolution first,
+	which will speed up the whole port scanning process.
+
+Nmap supports four IPv4 specifications:
+
+	- A single host such as 192.168.0.1.
+
+	- A whole network of adjacent hosts by using the CIDR notation, such as 192.168.0.1/24.
+		This specification will include all the 256 IP addresses ranging from 192.168.0.0 to 192.168.0.255.
+
+	- An octet range addressing, such as 192.168.2-4,6.1.
+		This addressing will include four IP addresses: 192.168.2.1, 192.168.3.1 192.168.4.1, 192.168.6.1.
+
+	- Multiple host specifications, such as 192.168.2.1 192.168.3-5,8.1.
+
+For the IPv6 addresses, Nmap only supports the fully qualified IPv6 format and hostname such as
+	fe80::a8bb:ccff:fedd:eeff%eth0.
+
+Besides getting the target specification from the command line, Nmap also accepts target definition from
+	a text file by using the -iL [file] option. Entries should be space, tab, or new line separated.
+
+=====================================================================================================================
+
+=========================
+| Nmap TCP Scan Options |
+=========================
+
+- TCP connect scan (-sT): This option will complete the three-way handshake with each target port.
+	If the connection succeeds, the port is considered open. As a result of the need to do a three-way
+	handshake for each port, this scan type is slow and it will most likely be logged by the target.
+	This is the default scan option used if Nmap is run by a user who doesn't have any privileges.
+
+- SYN scan (-sS): This option is also known as half-open or SYN stealth.
+	With this option, Nmap sends a SYN packet and then awaits for a response.
+	A SYN/ACK response means that the port is open, while a RST/ACK response means the port is closed.
+	If an ICMP unreachable error or no response was returned, the port is considered filtered.
+	This type of scan is quick and because the three-way handshake is never completed, it is undetectable and stealthy.
+	This is the default scan option if Nmap us run by a privileged user.
+
+- TCP NULL scan (-sN), FIN scan (-sF), and XMAS scan (-sX): 
+	The NULL scan doesn't set any control bits.
+	The FIN scan only sets the FIN flag bit, and the XMAS scan sets the FIN, PSH, and URG flags.
+	If an RST packet is received as a response, the port is considered closed, while a no response
+	means the port is open/filtered.
+
+- TCP Maimon scan (-sM): The TCP Maimon scan was discovered by Uriel Maimon.
+	This type of scan sends a FIN/ACK packet. BSD-derived OSs will drop the packet if the port is open,
+	and it will respond with a RST if the port is closed.
+
+- TCP ACK scan (-sA): This scan type is used to determine whether a firewall is stateful or not and which ports are filtered.
+	A network packet of this type only sets the ACK flag.
+	If RST is returned, the target is unfiltered.
+
+- TCP Window scan (-sW): This scan type works by examining the TCP Window field of the RST packet's response.
+	An open port will have a positive TCP Window value, while a closed port will have a zero window value.
+
+- TCP Idle scan (-sI): Using this technique, no packets are sent to the target from the attacker's machine,
+	instead the scan will bounce of a zombie host the attacker specifies. An IDS will report the zombie as the intruder.
+
+- There's a '--scan-flags' option for the user to supply their own flags to be set,
+	for example --scan-flags URGACKFIN
+
+=====================================================================================================================
+
+=========================
+| Nmap UDP Scan Options |
+=========================
+
+While the TCP scan has many types of scans, the UDP scan only has one type, which is UDP scan (-sU).
+	Even thought the UDP scan is less reliable compared to the TCP scan, an attacker should not ignore
+	this scan; because there may be interesting services located on the UDP ports.
+
+The UDP scan's biggest problem is how to perform it quickly.
+	The Linux kernel limits the sending of the ICMP Port Unreachable message to one message/second.
+	Scanning the 65,536 ports on a target machine would take 18 hourse to complete.
+
+Fortunately, there are ways to workaround this problem as follows:
+	
+	- Running parallel UDP scans.
+
+	- Scanning the most popular ports first.
+
+	- Scanning behind the firewall.
+
+	- Setting the --host-timeout option to skip slow hosts.
+
+=====================================================================================================================
+
+===========================
+| Nmap Port Specification |
+===========================
+
+By default, Nmap scans the 1000 most common ports for each protocol randomly.
+	The nmap-services file contains a popularity score for the selection of top ports.
+
+To change this configuration, Nmap provides several options as follows:
+
+	- port_range (-p): Scan only the defined ports.
+		To scan port 1 to 1024, type '-p 1-1024'.
+		To scan ports 21, 22, and 433, type '-p 21,22,433'.
+		To scan all the 65536 ports, type '-p-'.
+
+	- fast (-F): This will scan only the 100 common ports.
+
+	- don't randomize (-r): This will set sequential port scanning (from lowest to highest).
+
+	- 1 or greater (--top-ports): This will only scan the N highest-ratio
+		ports found in the nmap-service file.
+
+=====================================================================================================================
+
+=======================
+| Nmap Output Options |
+=======================
+
+Nmap scan results can be saved to an external file.
+	This option is useful if you want to process the Nmap result with other tools.
+
+Nmap supports several output formats as follows:
+
+	- Interactive output: This is the default output format, and the results are sent
+		to the standard output.
+
+	- Normal output (-oN): This format is similar to the interactive output,
+		but it doesn't include the runtime information and warnings.
+
+	- XML output (-oX): This format can be converted to an HTML format, parsed by
+		the Nmap GUI, or imported to the database.
+
+	- Grepable output (-oG): This format is deprecated, but is still quite popular.
+		It consists of comments (starting with a #) and target lines.
+		A target line includes a combination of six labeled fields separated by tabs
+			and followed by a colon.
+		The fields are Host, Ports, Protocols, Ignored State, OS, Seq Index, IP ID Seq, and Status.
+
+	You can use -oA to output the results in three formats at once (normal,XML, and grepable).
+
+=====================================================================================================================
+
+=======================
+| Nmap Timing Options |
+=======================
+
+Nmap comes with six timing modes as follows:
+	
+	- paranoid (-T0): In this mode, a packet is sent every 5 minutes.
+		The packets are sent serially.
+		This mode is useful to avoid IDS.
+
+	- sneaky (-T1): This mode sends a packet every 15 seconds, and there're no packets sent in parallel.
+
+	- polite (-T2): This sends a packet every 0.4 seconds, with no parallel transmission.
+
+	- normal (-T3): This mode sends multiple packets to multiple targets simultaneously.
+		This is the default timing mode used by Nmap. It balances between time and network load.
+
+	- aggressive (-T4): Nmap will scan a given host for only 5 minutes before moving on to the next.
+		Nmap will not wait more than 1.25 seconds for a response.
+
+	- insane (-T5): In this mode, Nmap will scan a given host for only 75 seconds before moving to the next.
+		Nmap will not wait for more than 0.3 seconds for a response.
+
+=====================================================================================================================
+
+=======================
+| Nmap Useful Options |
+=======================
+
+	- Service version detection (-sV): 
+		Nmap can also be asked to check the service version when doing port scanning.
+		This information is very useful when an attacker does the vulnerabilitiy identification process later on.
+
+	- Operating system detection (-O):
+		Nmap can also check for the operating system used on the target machine.
+		This information is very useful when an attacker does the vulnerabilitiy identification process later on.
+
+	- Disabling host discovery (-Pn):
+		If a host is blocking ping requests, Nmap may detect that the host is not active;
+		so, Nmap may not perform heavy probing, such as port scanning, version detection, and OS detection.
+		To overcome this, Nmap has a feature for disabling host discovery.
+		With this option, Nmap will assume that the target machine is available and will perform heavy probing agains the machine.
+
+	- Aggressive scan (-A):
+		If used, it will enable the following options:
+
+			- Service version detection (-sV).
+
+			- OS detection (-O).
+
+			- Script scanning (-sC).
+
+			- Traceroute (--traceroute).
+
+=====================================================================================================================
+
+==================================
+| Nmap for scanning IPv6 targets |
+==================================
+
+To scan an IPv6 target, you only have to use the '-6' option.
+	Currently, only individual IPv6 addresses are supported.
+
+=====================================================================================================================
+
+=============================
+| The Nmap Scripting Engine |
+=============================
+
+With the additional scripting engine capabilities, Nmap becomes a much more powerful tool.
+	With the NSE, users can automate various networking tasks, such as checking for new security vulnerabilites in applications,
+	detecting application versions, or other capabilities not available in Nmap.
+	Nmap has already included various NSE scripts in it's package, but users can also write their own scripts to suit their needs.
+
+Currently, the NSE scripts are categorized into the following categories:
+
+	- auth: Scripts that are used to find the authentication set on the target system,
+		such as using the brute-force technique.
+
+	- default: Scripts that are run using the '-sC' or '-A' options.
+		A script will be grouped in the default category if it satisfies the following requirements:
+
+			1 - It must be fast.
+
+			2 - It needs to produce valuable and actionable information.
+
+			3 - It's output needs to be verbose and concise.
+
+			4 - It must be reliable.
+
+			5 - It should be intrusive to the target system.
+
+			6 - It should divulge information to the third party.
+
+	- discovery: These sripts are used to find the network.
+
+	- doS: Scripts that may cause Denial of Service (DoS) on the target system.
+
+	- exploit: These scripts will exploit security vulnerabilities on the target system.
+
+	- external: These scripts may divulge information to third parties.
+
+	- fuzzer: These scripts are used to do fuzzing to the target system.
+
+	- intrusive: These scripts may crach the target system or use all the target system resources.
+
+	- malware: These scripts will check for the existence of malware or backdoors on the target system.
+
+	- safe: These scripts are not supposed to cause a service crash, DoS, or exploit target systems.
+
+	- version: These scripts are used with the version detection option (-sV) to carry out
+		advanced detection for the service on the target system.
+
+	- vuln: These scripts are used to check for security vulnerabilities on the target system.
+
+These scripts should be located in the /usr/share/nmap/scripts directories.
+
+There are several command line options to call NSE as follows:
+
+	- default (-sC or --script=default): Performs the scan using default scripts.
+
+	- (--script [filename] | [category] | [directory]):
+		Performs the scan using the script defined in filename, categories, or directories.
+
+	- (--script-args [args]): Provides script arguments.
+	An example are username/password if using the auth category.
+
+=====================================================================================================================
+
+=========================================
+| Nmap options for Firewall/IDS evasion |
+=========================================
+
+During a pentest, one may encounter a system that is using Firewall and IDS.
+	If we just use the default settings, our action may get detected or we may not get
+	the correct results from Nmap.
+
+The following options may be used to help us evade the Firewall/IDS:
+
+	- fragment packets (-f): 
+		The purpose of this option is to make it harder to detect the packets.
+			By specifying this option once, Nmap will split the packet into
+			8 bytes or less after the IP header.
+
+	- Maximum Transmission Unit (--mtu): 
+		With this option, you can specify your own packet size fragmentation.
+			The MTU must be a multiple of 8 or Nmap will throw an exception and exit.
+
+	- decoy (-D):
+		 By using this option, Nmap will send some of the probes from the spoofed IP address 
+		 	specified by the user. The idea is to mask the true IP address of the user in the logfiles.
+		 	The user IP address is still in the logs. You can use 'RND' to generate a random IP address or
+		 	'RND: [number]' to generate the [number] IP address. The hosts used for decoys should be up,
+		 	or you will flood the target. Also, remember that by using many decoys you can cause network congestion.
+
+	- spoof source port (-g or --source-port [portnumber]): 
+		This will be useful if the firewall is set up to allow all incoming traffic 
+			that comes from a specific port.
+
+	- data length (--data-length): 
+		This option is used to change the default data length send by Nmap
+			in order to avoid being detected as Nmap scans.
+
+	- max parallelism (--max-parallelism):
+		This option is usually set to one in order to instruct Nmap to send
+			no more than one probe at a time to the target host.
+
+	- scan delay (--scan-delay [time]):
+		This option can be used to evade IDS/IPS that uses a 
+			threshold to detect port scanning activity.
