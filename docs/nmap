@@ -2,7 +2,7 @@
 | Brief Description |
 =====================
 
-Nmap is a very comprehensive, feature- and fingerprint rich, and widely used port scanner 
+Nmap is a very comprehensive, feature- and fingerprint- rich, and widely used port scanner 
 	by all of the IT security community. It is a must-have tool for a pentester.
 
 Besides being used as a port scanner, Nmap has several other capabilities as follows :
@@ -248,6 +248,9 @@ Nmap comes with six timing modes as follows:
 
 			- Traceroute (--traceroute).
 
+	- verbosity (-v):
+		Be verbose and show scan results immediately.
+
 =====================================================================================================================
 
 ==================================
@@ -364,3 +367,39 @@ The following options may be used to help us evade the Firewall/IDS:
 	- scan delay (--scan-delay [time]):
 		This option can be used to evade IDS/IPS that uses a 
 			threshold to detect port scanning activity.
+
+=====================================================================================================================
+
+==========
+| Zenmap |
+==========
+
+Zenmap is the GUI of Nmap. The advantages of Zenmap compared to Nmap are as follows:
+
+	- Zenmap is interactive; it arranges the scan results in a convenient way.
+		It can even draw a topological map of the discovered network.
+
+	- Zenmap can do a comparison between two scans.
+
+	- Zenmap keeps a track of the scan results.
+
+	- To run the same scan configuration more than once, one can use a Zenmap profile.
+
+	- Zenmap will always display the command that's run, so one can verify that command.
+
+Type 'zenmap' in the terminal, this will display Zenmap's main window.
+Zenmap comes with 10 default profiles that can be chosen. To find which command
+	options are used on each profile, just click on 'Profile' and the command options
+	will be displayed in the 'Command:' field.
+
+If the default profiles aren't suitable for our needs, we can create our own profile
+	by creating a new profile or editing existing ones. These tasks can be found under the
+	'Profile' menu.
+
+To create a new profile, select the menu 'New Profile or Command', or you can press
+	'Ctrl + P'. To edit an exisiting profile, select the 'Edit Selected Profile' menu
+	or press 'Ctrl + E'.
+
+Select each tab (Profile, Scan, Ping, Scripting, Target, Source, Other, and Timing) and
+	configure it according to your needs. If you have finished configuring the profile, 
+	save the profile by clicking on the Save Changes button.

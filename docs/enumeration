@@ -1,0 +1,29 @@
+==============
+| unicornscan|
+==============
+
+Unicornscan is an information gathering and correlation engine tool.
+	It is useful for introducing stimulus and measuring the response from a TCP/IP device.
+
+Unicorn has the following features:
+
+	- Asynchronous stateless TCP port scanning.
+
+	- Asynchronous stateless TCP banner grabbing.
+
+	- Asynchronous UDP port scanning.
+
+	- Active and passive remote OS and application identification.
+
+The main difference between Unicornscan and other similar tools is that it is a very fast an scalable port scanner.
+	UDP port scanning usually takes a long time to finish, but Unicornscan can help with this problem.
+	In Unicornscan, we can define how many packets we want to send per second.
+	The higher the Packets Per Second (PPS) value, the faster the scan process; but this may cause
+	a network congestion, so be careful when using this capability.
+	The default PPS is 300.
+
+-m [mode] = Select scan mode.
+
+-Iv = Display the results immediately, and be verbose.
+
+-r [number] = Set the PPS to [number]. 
