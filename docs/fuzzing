@@ -222,6 +222,87 @@ weaknesses.
 		share information between one or more tools. 
 		This makes the Burp Suite a very effective and easy-to-use web application attack framework.
 
+		The following is an example from a book:
+
+		1. First, navigate to Proxy | Options and verify the proxy listeners property. In
+		our case, we left the default settings to listen on port 8080. More options such
+		as host redirection, SSL certificate, client request interception, server response
+		interception, page properties, and header modifications can be used to match
+		your application's assessment criteria.
+
+		2. Navigate to Proxy | Intercept and verify that the intercept is on tab is
+		enabled.
+
+		3. Open your favorite browser (Firefox, for example) and set up the local proxy
+		for HTTP/HTTPs transactions (127.0.0.1, 8080) to intercept, inspect, and
+		modify the requests between the browser and target web application. All
+		the consequent responses will be recorded accordingly. Here, the Burp Suite
+		application acts as the man-in-the-middle (MITM) proxy.
+
+		4. Surf the target website (for example, http://testphp.example.com) and
+		you will notice that the request has been trapped under Proxy | Intercept. In
+		our case, we decide to forward this request without any modification. If you
+		decide to modify any such request, you can do so with the Raw, Headers,
+		or Hex tabs. Note that any other target application resources (for example,
+		images and flash files) might generate individual requests while accessing
+		the index page.
+
+		5. We strongly recommend you to visit as many pages as possible and try
+		to help Burp Suite index the list of available pages mainly with the GET
+		and POST requests. You can also use Spider to automate this process. To
+		accomplish indexing with Spider, navigate to Target | Site map, right-click
+		on your target website (for example, http://testphp.example.com), and
+		select spider this host. This will help you discover and scan the number of
+		available pages automatically and follow up any form requests manually
+		(for example, the login page). Once this operation is over, you can navigate
+		to Target | Site map and check the right-side panel with the list of accessible
+		web pages and their properties (methods, URLs, parameters, response code,
+		and so on).
+
+		6. Select a web page with the GET or POST parameters in order to test it
+		with Intruder. The key is to enumerate possible identifiers, harvest useful
+		data, and fuzz the parameters for known vulnerabilities. Right-click on the
+		selected request and choose send to intruder. In our case, we select http://
+		testphp.example.com/listproducts.php?artist=2 to find out the known
+		vulnerabilities by injecting the variable length of characters instead of 2.
+
+		7. In the next step, we define the attack type and payload position (Intruder
+		| Positions) to automate our test cases. The notification for the payload
+		placement is given by the §2§ signature. We then step into the Intruder
+		| Payloads section to choose the specific payload from a predefined list,
+		Character blocks. Remember, you can also specify your own custom
+		payload. Once the whole setting is in place, navigate to Intruder | Start in
+		the menu bar. This will pop up another window that lists all requests being
+		executed against the target application. After these requests have been
+		processed as per the chosen payload, we decide to compare certain responses
+		in order to identify unexpected application behavior. This can be done by
+		simply right-clicking on the selected request and choosing send to comparer.
+		At least two or more different requests or responses can be compared
+		based on words or bytes. To learn more about different attack types visit
+		http://www.portswigger.net/burp/help/intruder_positions.
+		html#attacktype, while to understand the payload types payload options,
+		visit http://www.portswigger.net/burp/help/intruder_payloads_
+		types.html.
+
+		8. During the response comparison, we discovered the SQL injection vulnerability
+		with one of our payload requests. Hence, to verify its authenticity, we decided
+		to simulate that request again with Repeater by right-clicking on it and
+		selecting send request to repeater instead of selecting comparer from a
+		pop-up window. Click on the go button under the Repeater tab in order to get
+		a response for the desired request. You will notice the response instantly. In our
+		case, we notice the following error in a response page:
+		Error: Unknown column 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		AAAAAAAAAAAAAAAAAAAAA' in 'where clause'
+		Warning : mysql_fetch_array(): supplied argument is not a
+		valid MySQL result resource in
+		/var/www/vhosts/default/htdocs/listproducts.php on line 74
+
+		9. This clearly shows us the possibility of the SQL injection vulnerability.
+		Beside these kind of weaknesses, we can also test our application session
+		tokens for randomness using sequencer to uncover the session prediction
+		vulnerability. The basic use of sequencer has been mentioned at http://
+		www.portswigger.net/suite/sequencerhelp.html
+
 	- Nikto2
 		Nikto2 is a basic web server security scanner. 
 		It scans and detects the security vulnerabilities caused by server misconfiguration, 
@@ -233,3 +314,54 @@ weaknesses.
 		the authorization credentials using a dictionary-based attack method.
 
 		Find usage info @ https://cirt.net/nikto2-docs/
+
+	- Paros proxy
+		Paros proxy is a valuable and intensive vulnerability assessment tool. It spiders
+		through the entire website and executes various vulnerability tests. It also allows
+		an auditor to intercept the web traffic (HTTP/HTTPs) by setting up the local proxy
+		between the browser and the actual target application. This mechanism helps an
+		auditor tamper or manipulate with particular requests being made to the target
+		application in order to test it manually. Thus, Paros proxy acts as an active and
+		passive web application security assessment tool.
+		
+		Typing 'paros' in the terminal will bring up the Paros proxy window. Before you go through any practical
+		exercises, you need to set up a local proxy (127.0.0.1, 8080) in your favorite
+		browser. If you need to change any default settings, navigate to Tools | Options
+		in the menu bar. This will allow you to modify the connection settings, local proxy
+		values, HTTP authentication, and other relevant information. Once your browser has
+		been set up, visit your target website. 
+		The following are the steps for vulnerability testing and obtaining its report:
+
+		1. In our case, we browse through [host address] and notice
+		that it has appeared under the Sites tab of Paros Proxy.
+
+		2. Right-click on [host address] and choose Spider to crawl
+		through the entire website. This will take some minutes depending on how
+		big your website is.
+
+		3. Once the website crawling has finished, you can see all the discovered pages
+		in the Spider tab at the bottom. Additionally, you can chase up the particular
+		request and response for a desired page by selecting the target website and
+		choosing a specific page on the left-hand panel of the Sites tab.
+
+		4. In order to trap any further requests and responses, go to the Trap tab on the
+		right-hand panel. This is particularly useful when you decide to throw some
+		manual tests against the target application. Moreover, you can also construct
+		your own HTTP request by navigating to Tools | Manual Request Editor.
+
+		5. To execute the automated vulnerability testing, we select the target website
+		under the Sites tab and navigate to Analyze | Scan All from the menu. Note
+		that you can still select the specific types of security tests by navigating to
+		Analyze | Scan Policy and then navigating to Analyze | Scan instead of
+		selecting Scan All.
+
+		6. Once the vulnerability testing is complete, you can see a number of security
+		alerts on the Alerts tab at the bottom. These are categorized as the High,
+		Low, and Medium type risk levels.
+
+		7. If you would like to have the scan report, navigate to Report | Last
+		Scan Report in the menu bar. This will generate a report that lists all the
+		vulnerabilities found during the test session.
+
+		For more info on the usage, follow the link:
+		http://www.i-pi.com/Training/SecTesting/paros_user_guide.pdf

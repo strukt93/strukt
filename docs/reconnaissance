@@ -1,7 +1,0 @@
-- dig [target_URL]
-// Queries the DNS servers of the target host.
-// Use -t ns to delegate a DNS zone to use the authoritative name servers.
-
-- fierce -dns [target_URL]
-// Will list the name servers of the target, and will check if the DNS server allows zone transfers.
-
