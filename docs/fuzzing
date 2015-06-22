@@ -1,0 +1,235 @@
+=====================
+| Brief Description |
+=====================
+
+Fuzz analysis is a software-testing technique used by auditors and developers
+	to test their applications against unexpected, invalid, and random sets of data input.
+	The response will then be noticed in terms of an exception or a crash thrown by these applications.
+	This activity uncovers some of the major vulnerabilities in the software, which are not possible
+	to discover otherwise.
+	These vulnerabilities include buffer overflows, format strings, code injections, dangling pointers,
+	race conditions, and many other types of vulnerabilities.
+
+There are different classes of fuzzers available, which can be used to test file formats,
+	network protocols, command line inputs, enviromental variables, and web applications.
+	Any untrusted source of data input is considered to be insecure and inconsistent.
+	For instance, a trust boundary between the application and the Internet user is unpredictable.
+	Thus, all the data inputs should be fuzzed and verified against known and unknown vulnerabilities.
+
+=============================================================================================================
+
+=================
+| Fuzzing Tools |
+=================
+
+	- Bruteforce Exploit Detector
+		Bruteforce Exploit Detector (BED) is a powerful tool designed to fuzz the plain text
+			protocols against potential buffer overflows, format string bugs, integer overflows,
+			DoS conditions, and so on. It automatically tests the implementation of a chosen
+			protocol by sending different combinations of commands with problematic strings 
+			to confuse the target.
+			BED supports FTP, SMTP, POP, HTTP, IRC, IMAP, PJL, LPD, Finger, SOCKS4, and SOCKS5.
+
+	- JBroFuzz
+		JBroFuzz is a well-known platform to fuzzy test web applications. 
+			It supports web requests over the HTTP and HTTPS protocol. 
+			By providing a simple URL for the target domain and selecting the part of a web request to fuzz,
+			an auditor can either select to craft the manual request or use the predefined set of payloads database
+		    (for example, cross-site scripting, SQL injection, buffer overflow, format string errors, and so on) 
+	   	  	to generate some malicious requests based on the previously known vulnerabilities and send them to the target web server. The corresponding responses will then be recorded for further inspection.
+			Based on the type of testing that is performed, these responses or results should be manually investigated in order to
+			recognize any possible exploit condition.
+
+		The key options provided under JBroFuzz are fuzz management, payload categories,
+		sniffing the web requests and replies through browser proxy, and enumerating
+		the web directories. Each of these has unique functions and capabilities to handle
+		application protocol fuzzing.
+
+=============================================================================================================
+
+================
+| SMB Analysis |
+================
+
+Server Message Block (SMB) is an application-layer protocol, which is commonly
+	used to provide file and printer sharing services. 
+	Moreover, it is also capable of handling the shared services between serial ports and laid miscellaneous
+	communications between different nodes on the network.
+	 It is also known as CIFS (Common Internet File System).
+
+SMB is purely based on a client-server architecture and has been implemented
+	on various operating systems such as Linux and Windows. 
+	Network Basic Input Output System (NetBIOS) is an integral part of the SMB protocol, which
+	implements the transport service on Windows systems.
+	 NetBIOS runs on top of the TCP/IP protocol (NBT) and thus allows each computer with a unique network name
+	and IP address to communicate over Local Area Network (LAN).
+
+Additionally, the DCE/RPC service uses SMB as a channel for authenticated
+	inter-process communication (IPC) between network nodes.
+	This phenomenon allows the communication between processes and computers to share data on the
+	authenticated channel.
+	The NetBIOS services are commonly offered on various TCP and UDP ports (135, 137, 138, 139, and 445).
+	Due to these superior capabilities and weak implementation of the SMB protocol,
+	it has always been a chief target for hackers.
+	The number of vulnerabilities have been reported in past, which could
+	be advantageous to compromise the target. The tools presented in this section will
+	provide us with useful information about the target, such as the hostname, running
+	services, domain controller, MAC address, OS type, current users logged in, hidden
+	shares, time information, user groups, current sessions, printers, available disks,
+	and much more.
+
+	- Impacket Samrdump
+		Samrdump is an application that retrieves sensitive information about the specified
+			target using Security Account Manager (SAM), which is a remote interface that is
+			accessible under the Distributed Computing Environment / Remote Procedure
+			Calls (DCE/RPC) service.
+			It lists out all the system shares, user accounts, and other useful information about
+			the target's presence in the local network.
+
+		Samrdump is located in /usr/share/doc/python-impacket/examples/samrdump.py
+
+=============================================================================================================
+
+=================
+| SNMP analysis |
+=================
+
+Simple Network Management Protocol (SNMP) is an application-layer protocol
+that is designed to run on the UDP port 161.
+
+Its main function is to monitor all the network devices for conditions that may require administrative attention,
+such as a power outage or an unreachable destination. 
+
+The SNMP-enabled network typically consists of network devices, a manager, and an agent.
+
+A manager controls the administrative tasks for the network management and
+monitoring operations.
+
+An agent is a software that runs on the network devices, and
+these network devices could involve routers, switches, hubs, IP cameras, bridges,
+and sometimes operating system machines (Linux, Windows).
+These agent-enabled devices report information about their bandwidth, uptime, running processes,
+network interfaces, system services, and other crucial data to the manager via SNMP.
+
+The information is transferred and saved in the form of variables that describe the
+system configuration.
+
+These variables are organized in systematic hierarchies known
+as Management Information Bases (MIBs), where each variable is identified with a
+unique Object Identifier (OID).
+
+A total of three versions are available for SNMP (v1, v2, v3).
+
+From a security point of view, v1 and v2 were designed to handle communitybased
+security scheme, whereas v3 enhanced this security function to provide better
+confidentiality, integrity, and authentication.
+The tools that we present in this section will mainly target v1- and v2c-based SNMP devices.
+
+	- SNMP Walk
+	SNMP Walk is a powerful information-gathering tool.
+	It extracts all the device configuration data, depending on the type of device that is under examination.
+	Such data is very useful and informative in terms of launching further attacks and
+	exploitation attempts against the target.
+	Moreover, the SNMP Walk is capable of retrieving a single group MIB data or specific OID value.
+
+=============================================================================================================
+
+============================
+| Web Application Analysis |
+============================
+
+Most applications that are developed these days integrate different web technologies,
+which increases the complexity and risk of exposing sensitive data.
+Web applications have always been a long-standing target for malicious adversaries to steal,
+manipulate, sabotage, and extort the corporate business. 
+This proliferation of web applications has put forth enormous challenges for penetration testers. 
+The key is to secure both web applications (front-end) and databases (back-end) on top of the
+network security countermeasures. 
+This is necessary because web applications act as a data-processing system and the database is responsible for storing sensitive data
+(for example, credit cards, customer details, authentication data, and so on).
+
+	- DBPwAudit
+		DBPwAudit is a Java-based tool designed to audit passwords for Oracle, MySQL,
+		MS-SQL, and IBM DB2 servers. 
+		The application design is greatly simplified to allow us to add more database technologies, as required. 
+		It helps the pentester to discover valid user accounts on the database management system, if not hardened with a
+		secure password policy. 
+		It currently supports the dictionary-based password attack mechanism.
+
+	- SQLMap
+		SQLMap is an advanced and automatic SQL injection tool. 
+		Its main purpose is to scan, detect, and exploit the SQL injection flaws for a given URL. 
+		It currently supports various database management systems (DBMS) such as MS-SQL, MySQL,
+		Oracle, and PostgreSQL. 
+		It is also capable of identifying other database systems, such as DB2, Informix, Sybase, InterBase, and MS-Access. 
+		SQLMap employs four unique SQL injection techniques; these include inferential blind SQL injection, UNION
+		query SQL injection, stacked queries, and time-based blind SQL injection. 
+		Its broad range of features and options include database fingerprinting, enumerating, data
+		extracting, accessing the target filesystem, and executing the arbitrary commands
+		with full operating system access. 
+		Additionally, it can parse the list of targets from Burp proxy or WebScarab logs as well as the standard text file.
+		SQLMap also provides an opportunity to scan the Google search engine with classified Google
+		dorks to extract specific targets.
+
+
+		SQLMap's set of options has been divided into 11 logical categories: target specification,
+		connection request parameters, injection payload, injection techniques, fingerprinting,
+		enumeration options, user-defined function (UDF) injection, filesystem access,
+		operating system access, Windows registry access, and other miscellaneous options.
+
+		By default, SQLMap will scan all the available parameters (GET, POST, HTTP, Cookie, and User-Agent)
+		of a url, but we can restrict this option by defining the exact parameter '-p "[parameter]"' to be tested.
+
+	- SQL Ninja
+		SQL Ninja is a specialized tool that is developed to target those web applications that
+		use MS-SQL Server on the back-end and are vulnerable to SQL injection flaws.
+		Its main goal is to exploit these vulnerabilities to take over the remote database server
+		through an interactive command shell instead of just extracting the data out of the
+		database. 
+		It includes various options to perform this task, such as server fingerprint,
+		password brute force, privilege escalation, upload remote backdoor, direct shell,
+		backscan connect shell (firewall bypass), reverse shell, DNS tunneling, single
+		command execution, and Metasploit integration. 
+		Thus, it is not a tool that scans and discovers the SQL injection vulnerabilities but one that 
+		exploits any such existing vulnerability to gain OS access.
+
+		First, cd to /usr/share/doc/sqlninja
+		Then, extract sqlninja.conf.example.gz
+		Then, rename it to sqlninja.conf, and copy it to /usr/share/sqlninja/
+		Finally, edit the sqlninja.conf file to match your requirements, then run.
+
+=============================================================================================================
+
+==============================
+| Web Application Assessment |
+==============================
+
+The tools presented in this section mainly focus on the front-end security of web
+infrastructure. 
+They can be used to identify, analyze, and exploit a wide range
+of application security vulnerabilities. These include cross-site scripting (XSS),
+SQL injection, SSI injection, XML injection, application misconfiguration, abuse of
+functionality, session prediction, information disclosure, and many other attacks and
+weaknesses.
+
+	- Burp Suite
+		Burp Suite is a combination of powerful web application security tools. 
+		These tools demonstrate the real-world capabilities of an attacker penetrating web
+		applications. 
+		They can scan, analyze, and exploit web applications using manual
+		and automated techniques. 
+		The integration facility between the interfaces of these tools provides a complete attack platform to 
+		share information between one or more tools. 
+		This makes the Burp Suite a very effective and easy-to-use web application attack framework.
+
+	- Nikto2
+		Nikto2 is a basic web server security scanner. 
+		It scans and detects the security vulnerabilities caused by server misconfiguration, 
+		default and insecure files, and outdated server application. 
+		Nikto2 is purely built on LibWhisker2, and thus supports cross-platform deployment, SSL, 
+		host authentication methods (NTLM/Basic),
+		proxies, and several IDS evasion techniques. It also supports subdomain enumeration,
+		application security checks (XSS, SQL injection, and so on), and is capable of guessing
+		the authorization credentials using a dictionary-based attack method.
+
+		Find usage info @ https://cirt.net/nikto2-docs/

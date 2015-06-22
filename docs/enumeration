@@ -1,6 +1,6 @@
-==============
-| unicornscan|
-==============
+===============
+| Unicornscan |
+===============
 
 Unicornscan is an information gathering and correlation engine tool.
 	It is useful for introducing stimulus and measuring the response from a TCP/IP device.
@@ -27,3 +27,145 @@ The main difference between Unicornscan and other similar tools is that it is a 
 -Iv = Display the results immediately, and be verbose.
 
 -r [number] = Set the PPS to [number]. 
+
+=======================================================================================================================
+
+========
+| Amap |
+========
+
+Amap is a tool that can be used to check the application running on a specific port.
+	It works by sending a trigger packet to the port and comparing the response with it's database.
+
+-b = Banner grabbing mode.
+-q = Do not report closed or unidentified ports.
+
+=======================================================================================================================
+
+===================
+| SMB Enumeration |
+===================
+
+If you are testing a Windows machine, the easiest way to collect information about the enviroment is by using
+	a Server Message Block (SMB) enumeration tool such as 'nbtscan'.
+
+Nbtscan is used to produce a report containing the IP address, MAC address, NetBIOS computer name, 
+services available, and username of the corresponding Windows machine.
+
+To specify a range of hosts: nbtscan 192.168.0.1-254
+
+Use the '-hv' flags for human readable, verbose output.
+
+=======================================================================================================================
+
+====================
+| SNMP Enumeration |
+====================
+
+Even though the information from a Simple Network Monitoring Protocol (SNMP) device may not look important,
+	an attacker may encounter misconfigurations that can allow him to read the configuration, get important
+	information, and even have a privilege to modify the configuration.
+
+Some of the SNMP scanners follow:
+
+	- OneSixtyOne
+		The onesixtyone tool can be used as an SNMP scanner to find whether the SNMP community string exists on
+			a device. The difference with respect to other SNMP scanners is that this tool sends all the 
+			SNMP requests as fast as it can (10 ms apart). Then it waits for the responses and logs them.
+			If the device is available, it will send responses containing the SNMP string.
+
+		Sample usage: onesixtyone -d 192.168.0.3
+		The '-d' flag is for more verbose output.
+
+	- Snmpcheck
+		We can use snmpcheck to collect more information about the SNMP device using
+		the following command:
+		snmpcheck -t 192.168.0.3
+
+=======================================================================================================================
+
+===================
+| VPN Enumeration |
+===================
+
+Virtual Private Networks (VPNs) can be devided into at least three groups:
+
+	- IPsec-based VPN.
+
+	- OpenVPN.
+
+	- SSL-based VPN.
+
+There're tools out there test VPN, some follow:
+
+	- ike-scan
+		The ike-scan tool os a security tool that can be used to discover, fingerprint,
+		and test IPsec VPN systems. IPsec is the most commonly used technology for LAN-to-LAN
+		and remote access VPN solutions.
+
+	IPsec uses three major protocols as follows:
+		- Authentication Headers (AH): Provides data integrity.
+
+		- Encapsulation Security Payloads (ESP):
+			Provides data integrity and confidentiality.
+
+		- Internet Key Exchange (IKE): This provides support
+			for the negotiation of parameters between endpoints; it establishes,
+			maintains, and terminates the Security Association (SA).
+
+	IKE establishes security association through the following phases:
+
+ 		- IKE phase 1: This sets up a secure channel between two IPsec endpoints by
+			the negotiation of parameters, such as the encryption algorithm, integrity
+			algorithm, authentication type, key distribution mechanism, and lifetime. To
+			establish the bidirectional security association, IKE phase 1 can either use the
+			main mode or aggressive mode. The main mode negotiates SA through three
+			pairs of messages, while the aggressive mode provides faster operations
+			through the exchange of three messages.
+
+ 		- IKE phase 2: This is used for data protection.
+
+ 		- IKE phase 1.5 or the extended authentication phase: This is an optional
+			phase and is commonly used in the remote access VPN solutions.
+
+	The ike-scan tool works by sending IKE phase 1 packets to the VPN servers and
+		displaying any responses it receives.
+
+	The following are several features of ike-scan:
+
+ 		- Ability to send the IKE packets to any number of destination hosts.
+
+ 		- Ability to construct the outgoing IKE packets in a flexible way.
+
+ 		- Ability to decode and display any response packets.
+
+ 		- Ability to crack the aggressive mode pre-shared keys with the help of the psk-crack tool.
+
+	In short, the ike-scan tool is capable of two things:
+
+		- Discovery: Finding hosts running the IKE by displaying the hosts that
+			respond to the IKE request.
+
+		- Fingerprint: Identifying the IKE implementation used by the IPsec VPN
+			server. Usually, this information contains the VPN vendor and the model of
+			the VPN server. This is useful for later use in the vulnerability analysis process.
+
+	The reason why you need a tool like ike-scan is that in general, port scanner will
+	not be able to find an IPsec VPN server because these servers don't listen on any
+	TCP ports. And, they also don't send ICMP unreachable error message, so UDP
+	scans will not find them either. Also, if you try to send random garbage data to the
+	UDP port 500 or IP protocols 50 and 51, you will not receive any response. So, the
+	only way to find the IPsec VPN server is by using a tool that can send a correctly
+	formatted IKE packet and display any responses that are received from that server.	
+
+	To discover, fingerprint and test an IPsec VPN server, use the following command:
+
+	ike-scan -M -A -P [filename] [IP]
+
+	Where '-M' means a splitted decoded payload, for easier reading, '-A' is to use the IKE 
+	aggressive mode, and '-P' saves the pre-shared key to the desired file.
+
+	The next step is to use a dictionary attack to crack the password using the
+	'psk-crack' tool as follows:
+
+	psk-crack -d [wordlist] [pre-shared key file]

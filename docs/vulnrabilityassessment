@@ -34,3 +34,28 @@
 // Dirbuster is a directory and filename bruteforcing tool.
 // Set the target url, then choose the wordlist to be used from /usr/share/dirbuster/wordlists, then run.
 
+=============================================================================================================
+
+==================
+| Cisco analysis |
+==================
+
+Cisco products are of the top networking devices found in major corporate and government organizations today.
+	We will discuss some Cisco-related security tools in this section as follows:
+
+	- Cisco Auditing Tool
+		Cisco Auditing Tool (CAT) is a mini security auditing tool. It scans the Cisco routers
+			for common vulnerabilities such as default passwords, SNMP community strings, and
+			some old IOS bugs.
+
+		Possible options to be used are '-h' which is used to specify the target host, -w to specify the
+		wordlist for community name guessing, -a to specify the wordlist for password guessing, and -i to check
+		for IOS bugs. 
+
+	- Cisco Global Exploiter
+		Cisco Global Exploiter (CGE) is a small Perl script that combines 14 individual vulnerabilities
+			that can be tested against the Cisco devices.
+
+		An example command may look like:
+
+		cge.pl [IP] [vuln_num]

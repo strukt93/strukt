@@ -7,9 +7,9 @@
 // Creates the same payload but encoded, for the AVs not to detect it.
 // -e = Encode with [encoder].
 // -t = Output file type. (Exe in this case).
-// msfencode can be used with the -c flag to use an encoder more than one time,z providing better chances to go undetected.
+// msfencode can be used with the -c flag to use an encoder more than one time, providing better chances to go undetected.
 // Using multi-encoding (piping the output with -t raw to other encoding methods) is much encouraged.
-/* msfencode can be used with the -x flag to use a template, ensuring stealthy execution by the victim, use with -o [path]/filename.exe for the output file. Also, use with the -k flag to make msfencode configure the payload to be run in a separate thread from the main EXE's, if -k wasn't used with a GUI-based app, no console window will pop up when the EXE is run */
+// msfencode can be used with the -x flag to use a template, ensuring stealthy execution by the victim, use with -o [path]/filename.exe for the output file. Also, use with the -k flag to make msfencode configure the payload to be run in a separate thread from the main EXE's, if -k wasn't used with a GUI-based app, no console window will pop up when the EXE is run */
 
 
 // Use upx to compress and encode an EXE backdoor file.
