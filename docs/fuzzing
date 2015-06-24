@@ -222,7 +222,6 @@ weaknesses.
 		share information between one or more tools. 
 		This makes the Burp Suite a very effective and easy-to-use web application attack framework.
 
-		The following is an example from a book:
 
 		1. First, navigate to Proxy | Options and verify the proxy listeners property. In
 		our case, we left the default settings to listen on port 8080. More options such
@@ -365,3 +364,101 @@ weaknesses.
 
 		For more info on the usage, follow the link:
 		http://www.i-pi.com/Training/SecTesting/paros_user_guide.pdf
+
+	- W3AF
+		W3AF is a feature-rich web application attack and audit framework that aims to
+		detect and exploit the web vulnerabilities. 
+		The whole application security assessment process is automated 
+		and the framework is designed to follow three major steps: discovery, audit, and attack. 
+		Each of these steps includes several plugins, which might help the auditor focus on a specific testing criteria. 
+		All these plugins can communicate and share test data in order to achieve the required goal. 
+		It supports the detection and exploitation of multiple web application vulnerabilities including
+		SQL injection, cross-site scripting, remote and local file inclusion, buffer overflows,
+		XPath injections, OS commanding, application misconfiguration, and so forth. 
+		To get more information about each available plugin, go to: 
+		http://w3af.sourceforge.net/plugin-descriptions.php.
+
+		W3AF has a gui version and a CLI version.
+
+		Type 'w3af_console' to use W3AF in the terminal, type 'help' whenever you require
+		any assistance to follow the specific option.
+
+		Normally, we configure the plugins part, the output part, and the target, then we
+		run the audit.
+
+	- WafW00f
+		WafW00f is a very useful python script, capable of detecting Web Application Firewall (WAF).
+		This tool is particularly useful when the attacker wants to inspect the target application server
+		and might get a fallback with certain vulnerability assessment techniques, for which the web
+		application is actively protected by firewall.
+		Thus, detecting the firewall sitting in between the application server and the Internet traffic
+		not only improves the testing strategy, but also presents exceptional challenges for the attacker
+		to develop the advanced evasion techniques.
+
+		Type 'wafw00f' in the console to bring up simple usage instructions and an example.
+
+	- WebScarab
+		WebScarab is a powerful web application security assessment tool.
+		It has several modes of operation but is mainly operated through the intercept proxy. 
+		This proxy sits in between the end user's browser and the target web application to monitor
+		and modify the requests and responses that are being transmitted on either side.
+		This process helps the auditor manually craft the malicious request and observe the
+		response thrown back by the web application. It has a number of integrated tools,
+		such as fuzzer, session ID analysis, spider, web services analyzer, XSS and CRLF
+		vulnerability scanner, transcoder, and others.
+
+		Type 'webscarab' in the console.
+
+		This will pop up the lite edition of WebScarab. For our exercise, we are going to
+		transform it into a full-featured edition by navigating to Tools | Use full-featured
+		interface in the menu bar. This will confirm the selection and you should restart
+		the application accordingly. Once you restart the WebScarab application, you will
+		see a number of tool tabs on your screen. Before we start our exercise, we need to
+		configure the browser to the local proxy (127.0.0.1, 8008) in order to browse the
+		target application via the WebScarab intercept proxy. If you want to change the local
+		proxy (IP address or port), then navigate to the Proxy | Listeners tab.
+		The following steps will help you analyze the target application's session ID:
+
+		1. Once the local proxy has been set up, you should browse the target website
+		and visit as many links as possible. This will increase the probability and chance of
+		catching the known and unknown vulnerabilities. Alternatively, you can select the target under
+		the Summary tab, right-click, and choose Spider tree. This will fetch all the
+		available links in the target application.
+		
+		2. If you want to check the request and response data for the particular page
+		mentioned at the bottom of the Summary tab, double-click on it and see the
+		parsed request in a tabular and raw format. However, the response can be
+		viewed in the HTML, XML, Text, and Hex formats.
+
+		3. During the test period, we decide to fuzz one of our target application links
+		that have the parameters (for example, artist=1) with the GET method.
+		This may reveal any unidentified vulnerability, if it exists. Right-click on the
+		selected link and choose Use as fuzz template. Now click on to the Fuzzer
+		tab and manually apply different values to the parameter by clicking on the
+		Add button near the Parameters section. In our case, we wrote a small text
+		file listing the known SQL injection data (for example, 1 AND 1=2, 1 AND
+		1=1, single quote (')) and provided it as a source for fuzzing parameter
+		value. This can be accomplished using the Sources button under the Fuzzer
+		tab. Once your fuzz data is ready, click on Start. After all tests are complete,
+		you can double-click on an individual request and inspect its consequent
+		response. In one of our test cases, we discovered the MySQL injection
+		vulnerability:
+		Error: You have an error in your SQL syntax; check the manual that
+		corresponds to your MySQL server version for the right syntax
+		to use near '\'' at line 1 Warning: mysql_fetch_array():
+		supplied argument is not a valid MySQL result resource in
+		/var/www/vhosts/default/htdocs/listproducts.php on line 74
+		
+		4. In our last test case, we decide to analyze the target application's session ID.
+		For this purpose, go to the SessionID Analysis tab and choose Previous
+		Requests from the combo box. Once the chosen request has been loaded,
+		go to the bottom, select samples (for example, 20), and click on Fetch to
+		retrieve various samples of session IDs. After that, click on the Test button
+		to start the analysis process. You can see the results under the Analysis tab
+		and the graphical representation under the Visualization tab. This process
+		determines the randomness and unpredictability of session IDs, which could
+		result in hijacking other users' sessions or credentials.
+		This tool has a variety of options and features, which could potentially add
+		a cognitive value to penetration testing. To get more information about the
+		WebScarab project, visit http://www.owasp.org/index.php/Category:OWASP_
+		WebScarab_Project.
