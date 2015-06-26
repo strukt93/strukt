@@ -1,0 +1,69 @@
+==========================================
+| Vulnerability and exploit repositories |
+==========================================
+
+For many years, a number of vulnerabilities have been reported in the public domain.
+Some of these were disclosed with the proof-of-concept (PoC) exploit code to prove the feasibility and
+viability of a vulnerability found in the specific software or application. And, many
+still remain unaddressed. This competitive era of finding the publicly available exploits
+and vulnerability information makes it easier for penetration testers to quickly search
+and retrieve the best available exploit that may suit their target system environment.
+You can also port one type of exploit to another type (for example, Win32 architecture
+to Linux architecture) provided that you hold intermediate programming skills and a
+clear understanding of OS-specific architecture.
+
+Note : Not every single vulnerability found has been disclosed to the public on
+the Internet. Some are reported without any PoC exploit code, and some
+do not even provide detailed vulnerability information. For this reason,
+consulting more than one online resource is a proven practice among
+many security auditors.
+
+The following is a table containing the repository names an their corresponding URLs:
+
+
+===================================================================
+                           ||
+Repository Name            ||         Website URL
+                           ||
+===================================================================
+Bugtraq SecurityFocus      || http://www.securityfocus.com
+===================================================================
+OSVDB Vulnerabilities      || http://osvdb.org
+===================================================================
+Packet Storm               || http://www.packetstormsecurity.org
+===================================================================
+VUPEN Security             || http://www.vupen.com
+===================================================================
+National Vulnerability     || http://nvd.nist.gov
+Database                   ||
+===================================================================
+ISS X-Force                || http://xforce.iss.net
+===================================================================
+US-CERT Vulnerability Notes|| http://www.kb.cert.org/vuls
+===================================================================
+US-CERT Alerts             || http://www.us-cert.gov/cas/techalerts/
+===================================================================
+SecuriTeam                 || http://www.securiteam.com
+===================================================================
+Government Security Org    || http://www.governmentsecurity.org
+===================================================================
+Secunia Advisories         || http://secunia.com/advisories/historic/
+===================================================================
+Security Reason            || http://securityreason.com
+===================================================================
+XSSed XSS-Vulnerabilities  || http://www.xssed.com
+===================================================================
+Security Vulnerabilities   || http://securityvulns.com
+Database                   ||   
+===================================================================
+SEBUG                      || http://www.sebug.net
+===================================================================
+BugReport                  || http://www.bugreport.ir
+===================================================================
+MediaService Lab           || http://lab.mediaservice.net
+===================================================================
+Intelligent Exploit        || http://www.intelligentexploit.com
+Aggregation Network 	   ||
+===================================================================
+Hack0wn                    || http://www.hack0wn.com
+===================================================================
