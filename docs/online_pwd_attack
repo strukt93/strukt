@@ -1,0 +1,26 @@
+===============================
+| Online Password Attack Tools|
+===============================
+
+CeWL
+====
+The Custom Word List (CeWL) generator is a tool that will spider a target
+Uniform Resource Locator (URL) and create a unique list of the words found
+on that URL.
+This list can then be used by password cracker tools such as John The Ripper.
+
+Hydra
+=====
+Hydra is a tool that can be used to guess or crack the login username and password.
+It supports numerous network protocols, such as HTTP, POP3, FTP and SMB.
+It works by using the username and password provided and tries to log in to
+the network service in parallel; by default, it will log in using 16 connections
+to the same host.
+
+Medusa
+======
+Medusa is another online password cracker for network services.
+It has the characteristics of being speedy, massively parallel, and modular.
+Currently, it has modules for the following services: CVS, FTP, HTTP, IMAP,
+MS-SQL, MySQL, NCP (NetWare), PcAnywhere, POP3, PostgreSQL, rexec, Rlogin,
+rsh, SMB, SMTP(VRFY), SNMP, SSHv2, Telnet, VmAuthd, VNC and generic wrapper module.
