@@ -1,0 +1,94 @@
+
+------------------------------------
+			Serialization
+------------------------------------
+
+Applications may serialize data or objects before transmitting them within HTTP
+
+requests. Although it may be possible to decipher some of the string-based data
+
+simply by inspecting the raw serialized data, in general you need to unpack the
+
+serialized data before it can be fully understood. And if you want to modify the
+
+data to interfere with the application’s processing, fi rst you need to unpack the
+
+serialized content, edit it as required, and reserialize it correctly. 
+
+Simply editing the raw serialized data will almost certainly break the format and cause a
+
+parsing error when the application processes the message.
+
+Each browser extension technology comes with its own scheme for serializing
+
+data within HTTP messages. 
+
+In general, therefore, you can infer the serialization format based on the type of client component that is being employed, 
+
+but the format usually is evident in any case from a close inspection of the relevant HTTP messages.
+
+
+----------------------------------
+		Java Serialization
+----------------------------------
+
+Java applets may serialize the data they send to servers using native Java serialization.
+
+The Content-Type: application/x-java-serialized-object header implies that the request contains
+
+serialized Java objects.
+
+Intercepted Java serialized objects can be deserialized using Java itself.
+
+DSer is a handy plug-in to Burp Suite that provides a framework for viewing
+
+and manipulating serialized Java objects that have been intercepted within Burp.
+
+This tool converts the primitive data within the intercepted object into XML
+
+format for easy editing. 
+
+When you have modifi ed the relevant data, 
+
+DSer then reserializes the object and updates the HTTP request accordingly.
+
+DSer can be downloaded at the following URL:
+
+http://blog.andlabs.org/2010/09/re-visiting-java-de-serialization-it.html
+
+--------------------------------------------------------------------------------------------------------------
+
+-------------------------------------
+		Flash Serialization
+-------------------------------------
+
+Flash uses its own serialization format that can be used to transmit complex
+data structures between server and client components.
+
+Flash AMF (Action Message Format) can be identified via the
+
+Content-Type: application/x-amf header.
+
+Burp natively supports AMF serialization/deserialization, it automatically
+
+unpacks AMF requests and repacks them when forwarded.
+
+--------------------------------------------------------------------------------------------------------------
+
+----------------------------------
+	Silverlight Serialization
+----------------------------------
+
+Silverlight applications can make use of the Windows Communication Foundation
+
+(WCF) remoting framework that is built in to the .NET platform.
+
+Silverlight client components using WCF typically employ Microsoft’s .NET Binary Format for
+
+SOAP (NBFS), which can be identified via the
+
+Content-Type: application/soap+msbin1 header.
+
+The WCF binary SOAP plug-in for Burp was produced by Brian Holyfi eld and is available to download here:
+
+www.gdssecurity.com/l/b/2009/11/19/wcf-binary-soap-plug-in-for-burp/
