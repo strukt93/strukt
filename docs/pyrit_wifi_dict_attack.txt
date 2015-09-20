@@ -1,0 +1,30 @@
+	
+	Pyrit is a tool for cracking WIFI networks' passwords using the cores in the
+	CPU/GPU, so if we have 4 cores we can crack the password 4 times faster than
+	it would take if we are using aircrack-ng.	
+
+	Commands:
+
+		- pyrit list_cores
+		// Lists the number of cores in the CPU.
+
+		- pyrit -r [path/to/capture_file] analyze
+		// Analyze the .cap file for handshakes.
+
+		- pyrit eval
+		// Show an overview of settings.
+
+		- pyrit -i [path/to/wordlist] import_passwords
+		// Import all the data in a wordlist.
+
+		- pyrit -e [ap_ssid] create_essid
+		// Add the target network.
+
+		- pyrit batch
+		// Process passwords for cracking the password.
+
+		- pyrit -r [path/to/capture_file] attack_db
+		// Start cracking the password.
+
+		- pyrit -e [ap_ssid] delete_essid
+		// Remove the target network.
