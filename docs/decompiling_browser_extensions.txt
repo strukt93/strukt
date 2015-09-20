@@ -1,0 +1,243 @@
+
+---------------------
+	Description
+---------------------
+
+Java applets are usually embedded into the web application HTML using
+
+the <applet> tag, example: 
+
+<applet code=”CheckQuantity.class” codebase=”/scripts” id=”CheckQuantityApplet”>
+</applet>
+
+Other browser extensions are loaded using the <object> tag.
+
+Browser extensions are compiled into bytecode, which is a high-level platform-independent
+
+binary representation that can be executed by the relevant interpreter, enabling the app
+
+to run on whatever platforms the interpreter itself can be run on.
+
+-------------------------------------------------------------------------------------------
+
+---------------------------------
+	Downloading The Bytecode
+---------------------------------
+
+In order to decompile the extension, downloading it is needed.
+
+The URL can be inferred from the <applet>/<object> tags, another method
+
+to determine the URL is to search for the URL in the intercepting proxy's
+
+history, but we need to take care of two things:
+
+1 - Some proxies hide some items from history, such as images or CSS files, as 
+
+we generally aren't interested in them, this can be solved by modifying the proxy's
+
+history to show all URLs.
+
+2 - Browsers usually cache downloaded bytcodes for browser extensions more
+
+aggressively than they cache static items such as images, so even a full page 
+
+refresh may not cause the browser to load the component again. In this case, 
+
+we may need to clear the browser's cache, close all browser windows, then 
+
+start a new browser window/session and request the resource again.
+
+After that, when we specify the URL of the bytecode, the browser will prompt
+
+us to save the bytecode to our machine.
+
+-------------------------------------------------------------------------------------------
+
+---------------------------------
+	Decompiling The Bytecode
+---------------------------------
+
+Bytecode is usually distributed in single-file formats, which may need to be unpacked
+
+first, in order to decompile it into source code.
+
+Java applets are normally packaged as .jar files, while Silverlight objects are packaged as .xap files.
+
+Both of these file types use the .zip format, so renaming them into .zip then using any zip reader
+
+to unpack them does the job.
+
+Java bytecode is contained in .class files, while Silverlight bytecode is in .dll files.
+
+After unpacking them, we'll need to decompile those files to obtain source code.
+
+Flash objects are packed as .swf files, and don't need to be unpacked before decompiling.
+
+Decompiling Tools
+------------------
+
+	Java Tools
+	----------
+
+		Java bytecode can be decompiled using the Jad (the Java decompiler) tool, which can be found
+
+		at www.varaneckas.com/jad .
+
+	Flash Tools
+	-----------
+
+		Flash bytecode can be decompiled into ActionScript source code.
+
+		An alternative approach, which is often more effective, is to decompile it 
+
+		into human-readable form without fully decompiling it into source code.
+
+		The following tools can be used to decompile flash bytecode:
+
+		- Flasm -- www.nowrap.de/flasm 
+		- Flare -- www.nowrap.de/flare
+		- SWFScan -- www.hp.com/go/swfscan (this works for Actionscript 2 and 3).
+
+	Silverlight Tools
+	-----------------
+
+		Silverlight bytecode can be decompiled into source code using a tool called
+
+		.NET Reflector, which is available at 
+
+		www.red-gate.com/products/dotnet-development/reflector/ .
+
+
+-------------------------------------------------------------------------------------------
+
+-----------------------------------
+	Working on the Source Code
+-----------------------------------
+
+Generally, the first step to exploiting/attacking the applet/object is reviewing the source
+
+code and trying to understand which functionalities does it have, items to look for may contain
+
+the following :
+
+	- Input validation or other security-relevant logic and events that occur on the client side.
+
+	- Obfuscation or encryption routines being used to wrap user-supplied data before it is sent to the server.
+
+	- “Hidden” client-side functionality that is not visible in your user interface 
+
+	but that you might be able to unlock by modifying the component.
+
+	- References to server-side functionality that you have not previously identified via your application mapping.
+
+
+Often, reviewing the source code uncovers interesting functions within the component that can be used
+
+to attack the application and pose some security vulnerabilities.
+
+These may include removing client-side input validation, submitting non-standard data to the server,
+
+manipulating client-side state or events, or directly invoking functionality that is present in the component.
+
+-------------------------------------------------------------------------------------------
+
+----------------------------------------------------
+	Recompiling and Executing within the Browser
+----------------------------------------------------
+
+After viewing and editing the source code, we may want to recompile the code again in order
+
+to test it. This approach is preferred when we need to manipulate key client-side events, 
+
+such as rolling the dice in an online game.
+
+To recompile the code, we need the tools relevant to the technology that is in use:
+
+	- For Java, we can use the javac tool in the JDK.
+
+	- For Flash, we can use flasm to recompile modified bytecode, or we can use one of the
+
+	Flash development studios from Adobe to recompile modified ActionScript code.
+
+	- For Silverlight, we can use Visual Studio.
+
+Having recompiled the source code, we will then need to pack it again in the single-file format.
+
+For Java and Silverlight, we can do so simply by replacing the old unpacked files in the unpacking 
+
+directory with our new modified ones, repacking using a zip tool, then renaming into .jar or .xap .
+
+The final step is to load the modified component into our browser for our changes can take effect 
+
+on the web application we're trying to attack. This can be achieved in various ways:
+
+	- If the physical the browser's on-disk cache that contains the original executable can be found,
+
+	we can replace it with our modified version and the restart the browser.
+
+	This approach may be difficult if the browser doesn't use a different individual file for each
+
+	cached resourse or if the browser only caching of browser extentions is only done in memory.
+
+	- Using the intecepting proxy, we can modify the source of the page that loads the component and
+
+	specify a different URL pointing to the local file system or a web server that we control.
+
+	This method is hard because the browser may refuse to do so as this violates the SOP (Same Origin Policy).
+
+	- We can cause the browser to load the resource from it's original URL, using the method in the
+
+	"Downloading The Bytecode" section, use the proxy to intercept the response containing the 
+
+	executable, then editing the body of the response with our modified version.
+
+-------------------------------------------------------------------------------------------
+
+-----------------------------------------------------
+	Recompiling and Executing Outside the Browser
+-----------------------------------------------------
+
+In some cases, it is not necessary to modify the component’s behavior while it
+
+is being executed. For example, some browser extension components validate
+
+user-supplied input and then obfuscate or encrypt the result before sending
+
+it to the server. In this situation, we may be able to modify the component to
+
+perform the required obfuscation or encryption on arbitrary unvalidated input
+
+and simply output the result locally. We can then use our proxy to intercept the
+
+relevant request when the original component submits the validated input, and
+
+we can replace this with the value that was output by our modified component.
+
+To carry out this attack, we need to change the original executable, which is
+
+designed to run within the relevant browser extension, into a standalone program
+
+that can be run on the command line. The way this is done depends on
+
+the programming language being used. For example, in Java we simply need
+
+to implement a main method.
+
+-------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------
+	Manipulating the Original Component Using Javascript
+-------------------------------------------------------------
+
+Sometimes, it's not necessary to modify the bytecode of the component. Instead
+
+we may be able to achieve our goals by modifying the Javascript inside the HTML page
+
+that interacts with the component.
+
+Having reviewed the component's source code, we can identify all it's public methods
+
+that can be invoked directly using Javascript and how their parameters are handled.
+
+-------------------------------------------------------------------------------------------
