@@ -1,0 +1,16 @@
+	
+
+
+	
+	- airodump-ng [mon_interface_name]
+	// Capture all networks' traffic.
+
+	- airodump-ng --bssid [ap_bssid] --channel [channel_number] --write [/path/to/file] [mon_interface_name]
+	// Capture the specified AP after finding it's bssid and channel and write the data to a file.
+	// Wait till a handshake takes place, or deauth a user and wait for them to reconnect.
+
+	- aircrack-ng [/path/to/capture_file] -w [path/to/wordlist]
+	// Attempt to crack the password using the .cap file and a dictionary (wordlist).
+
+	- airdecap-ng -e ['network_ssid'] -p [network_password] [path/to/capture_file]
+	// Decrypt the packets in the .cap file after cracking the network's password.

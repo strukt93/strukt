@@ -1,0 +1,28 @@
+	
+	WPS (Wifi Protected Setup) is a system to help people with less technical knowledge
+	to setup their networks and so.
+
+	Reaver is a tool for cracking the 8-digit pin of a router (if WPS is enabled), it brute-forces
+	it's way until it finds the WPS pin.
+
+	Commands:
+
+		- airodump-ng --wps [mon_interface_name]
+		// Capture traffic of surrounding networks and show if WPS is enabled.
+
+		- reaver -i [mon_interface_name] -b [ap_bssid] -c [channel_name]
+		// Use Reaver to start brute-forcing the WPS pin.
+
+		Additional Reaver flags:
+
+		-f = Fixed channel (Disable channel hobbing).
+
+		-a = Detect the best advanced options.
+
+		-w = Mimic a Win 7 registrar.
+
+		-v = Enable verbose.
+
+		-vv = Enable very verbose.
+
+		-K 1 = Use pexie attack (Use most common pins).

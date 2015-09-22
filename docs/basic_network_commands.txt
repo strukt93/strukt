@@ -1,0 +1,65 @@
+
+-------------------------------
+		Basic Commands
+-------------------------------
+
+	- ifconfig 
+	//Shows all interfaces.
+	
+	- ifconfig -a
+	//Shows active interfaces.
+
+	- ifconfig [interface_name]
+	// Shows specific interface info.
+
+	- ifconfig [interface_name] down/up
+	// Bring the specified interface up or down.
+
+	- ifconfig [interface_name] [new_ip_address]
+	// Specify a new IP address for the interface.
+
+	- ifconfig [interface_name] netmask [netmask]
+	// Specify a new netmask for the interface.
+
+	- iwconfig
+	// Shows all settings for all interfaces.
+
+	- iwconfig [interface_name]
+	// Shows settings for the specified interface.
+
+	- airmon-ng
+	// Shows detected cards.
+
+	- airmon-ng check
+	// Shows processes that may interfere with the interfaces.
+
+	- airmon-ng check kill
+	// Kills all processes that may cause troubles.
+
+	- airmon-ng start [interface_name]
+	// Put the specified interface in monitor mode.
+
+	- airmon-ng check [mon_interface_name]
+	// Check the status of the interface.
+
+	- airmon-ng stop [mon_interface_name]
+	// Put the specified interface in managed mode.
+	// NOTE: MUST run "service network-manager restart" after stopping monitor mode.
+
+	- airodump-ng [mon_interface_name]
+	// Dump wireless networks in range.
+
+	- airodump-ng --bssid [AP_BSSID] [interface_name]
+	// Dump the traffic of a specific AP. 
+
+	- airodump-ng --bssid [AP_BSSID] --channel [channel_number] [interface_name]
+	// Dump the traffic of a specific AP and on the specified channel.
+
+	- macchanger -r [interface_name]
+	// Change the MAC address of the specific card to a random one.
+	// NOTE: MUST bring the interface down before changing it's MAC address.
+
+	- aireplay-ng --deauth [packets_number] -a [ap_bssid] -c [victim_bssid] [interface_name]
+	// Send deauthentication packets to a target to knock them off the network.
+
+	
