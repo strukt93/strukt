@@ -99,7 +99,7 @@ contains only printable ASCII characters:
 
 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 
-If the fi nal block of input data results in fewer than three chunks of output
+If the final block of input data results in fewer than three chunks of output
 data, the output is padded with one or two = characters.
 
 Example:
