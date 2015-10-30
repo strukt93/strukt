@@ -38,3 +38,28 @@ Different types of Resource Records exist within a Zone file, some of the most i
 
 - CNAME Records: CNAME Records give an alias of some name to another.
 	For example: www.google.com to google.com.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+-------------------
+		dig
+-------------------
+
+dig stands for Domain Information Groper, this tool is used to query DNS nameservers.
+
+The output of a simple dig command (dig google.com for example), consists of the following:
+
+- Header: Shows the dig tool's version number, along with some global options used by dig, and some header information.
+
+- QUESTION SECTION: This shows the question part of the whole operation, which is our input. It will show the A record in the case of google.com
+as it's the default behaviour of the dig tool.
+
+- ANSWER SECTION: This is the actual output of the command, shows the A record of google.com in this case.
+
+- AUTHORITY SECTION: Displays the available nameservers of the target, the nameservers that have the authority to reply to queries.
+
+- ADDITIONAL SECTION: Shows the IP-addresses of the authoritative nameservers.
+
+- Stats section: Shows some statistics about the command.
+
+The use of the dig tool is pretty simple, just type dig and the records type/all , and use the -x flag if a reverse dns lookup is needed.
