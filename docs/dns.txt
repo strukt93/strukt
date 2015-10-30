@@ -1,0 +1,40 @@
+--------------------------
+		   DNS
+--------------------------
+
+
+This doc is about DNS and how they work, and how to find DNS misconfigurations.
+
+DNS are naming systems for computers used to convert human readable domain names into computer readable IP-addresses.
+
+For example, when we go on and open a browser tab, type google.com, it's now the responsibilty of the DNS resolver, laying at
+our OS, to get the IP-address of the domain name.
+
+It first checks it's local cache for a record of the queried domain name. It then queried the DNS server to see if it 
+has the record if the record is not found in the cache. If the IP-address was not found, it then starts to query nameservers 
+recursively until the IP-address is found, then caches it for future use.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------
+Resource Records and the Zone file
+----------------------------------
+
+The Zone file is basically a text file present on the server hosting the domain. It contains entries for different resource records.
+
+Each Zone file must start with a SOA (Start Of Authority) record containing an authoritative nameserver for the domain, and an email
+address of someone responsible for the management of the nameserver.
+
+Different types of Resource Records exist within a Zone file, some of the most important ones are:
+
+- A Records: A Records map an IP-address to a hostname.
+
+- NS Records: NS Records delegate a given zone to use the given authoritative nameserver.
+	For example, ns1.google.com is an authoritative nameserver for google.com.
+
+- MX Records: MX Records tell us which servers are responsible for emails sent to the domain name.
+
+- TXT Records: TXT Records contain arbitrary human readable text in a record.
+
+- CNAME Records: CNAME Records give an alias of some name to another.
+	For example: www.google.com to google.com.
