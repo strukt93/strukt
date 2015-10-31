@@ -32,7 +32,7 @@ Different types of Resource Records exist within a Zone file, some of the most i
 - NS Records: NS Records delegate a given zone to use the given authoritative nameserver.
 	For example, ns1.google.com is an authoritative nameserver for google.com.
 
-- MX Records: MX Records tell us which servers are responsible for emails sent to the domain name.
+- MX Records: MX Records tell us which servers are responsible for receiving emails sent to the domain name.
 
 - TXT Records: TXT Records contain arbitrary human readable text in a record.
 
