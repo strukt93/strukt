@@ -4,7 +4,7 @@ public class Interpreter {
 	int position;
 
 	public Interpreter(String input) {
-		this.input = input;
+		this.input = input.replaceAll("\\s+", "");
 		this.position = 0;
 	}
 
@@ -21,33 +21,81 @@ public class Interpreter {
 			position++;
 			return new Token("plus", currentChar + "");
 		}
+		if (currentChar == '-') {
+			position++;
+			return new Token("minus", currentChar + "");
+		}
+		if (currentChar == '*') {
+			position++;
+			return new Token("times", currentChar + "");
+		}
+		if (currentChar == '/') {
+			position++;
+			return new Token("divide", currentChar + "");
+		}
 		return null;
 	}
 
-	public void eat(String type) {
+	public boolean eat(String type) {
 		if (this.currentToken.type.equals(type.toUpperCase())) {
 			this.currentToken = getNextToken();
+			return true;
 		} else {
-			System.out.println("Parseing Error: Current Token Type is " + currentToken.type
-					+ ", while given argument is " + type.toUpperCase());
+			return false;
 		}
 	}
 
 	public void expr() {
 		this.currentToken = getNextToken();
-		Token left = currentToken;
-		eat("integer");
-		Token plus = currentToken;
-		eat("plus");
-		Token right = currentToken;
-		eat("integer");
-		Token eof = currentToken;
-		eat("eof");
-		System.out.println(Integer.parseInt(left.value) + Integer.parseInt(right.value));
+		String left = "";
+		String right = "";
+		boolean p = false;
+		char operator = 0;
+		while (!currentToken.type.equals("EOF".toUpperCase())) {
+			Token t = currentToken;
+			if (eat("integer")) {
+				if (!p)
+					left += t.value;
+				else
+					right += t.value;
+			}
+			if (eat("plus")) {
+				operator = '+';
+				p = true;
+			}
+			if (eat("minus")) {
+				operator = '-';
+				p = true;
+			}
+			if (eat("times")) {
+				operator = '*';
+				p = true;
+			}
+			if (eat("divide")) {
+				operator = '/';
+				p = true;
+			}
+		}
+		System.out.println(performOperation(operator, Integer.parseInt(left), Integer.parseInt(right)));
+	}
+
+	public int performOperation(char operator, int op1, int op2) {
+		switch (operator) {
+		case '+':
+			return op1 + op2;
+		case '-':
+			return op1 - op2;
+		case '*':
+			return op1 * op2;
+		case '/':
+			return op1 / op2;
+		default:
+			return Integer.MIN_VALUE;
+		}
 	}
 
 	public static void main(String[] args) {
-		Interpreter in = new Interpreter("5+9");
+		Interpreter in = new Interpreter("10*1010000");
 		in.expr();
 	}
 }
