@@ -33,3 +33,21 @@ by using :unset +t.
 -- "it" is the last value used.
 
 -- runghc file.hs < something.txt runs a haskell file and takes a txt file as input.
+
+-- head [1,2,3] returns 1, the first element of a list.
+
+-- tail [1,2,3] returns [2,3], the tail of a list, which is a list.
+
+-- take 2 [1,2,3,4,5] returns [1,2], which is a list of the 
+first 2 elements of the list.
+
+-- drop 3 [1,2,3,4,5] returns [4,5], which is a list of all 
+the elements of the list but the first three.
+
+-- last [1,2,3,4,5] returns 5, the last element in the list.
+
+-- fst (1,'a') returns 1, the first argument in a tuple (pair).
+
+-- snd (1,'a') returns 'a', the second argument in a tuple (pair).
+
+
