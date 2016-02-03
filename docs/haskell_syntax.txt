@@ -50,4 +50,4 @@ the elements of the list but the first three.
 
 -- snd (1,'a') returns 'a', the second argument in a tuple (pair).
 
-
+-- lines "hello\nworld" returns ["hello","world"]
