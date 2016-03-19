@@ -40,7 +40,7 @@ def prepare_url(url):
             if not(exp is None):
                 check_list('http://' + url)
 
-url = input("Enter a URL:  ")
+url = raw_input("Enter a URL:  ")
 links = []
 base_url = url
 prepare_url(url)
