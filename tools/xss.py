@@ -38,7 +38,6 @@ print "[*] Listenin on port " + str(port) + "\n[*] The prompt will start appeari
 
 def process_command(command):
 	if command.lower() == "exit":
-		print('here')
 		exit("Script terminated successfully.")
 
 while 1:
